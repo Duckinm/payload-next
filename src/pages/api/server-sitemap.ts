@@ -4,36 +4,36 @@ const { Readable } = require('stream')
 
 const Sitemap = async (req, res) => {
   try {
-    const PagesReq = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all`
-    )
+    // const PagesReq = await fetch(
+    //   `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all`
+    // )
 
-    const GalleriesReq = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=all`
-    )
+    // const GalleriesReq = await fetch(
+    //   `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=all`
+    // )
 
-    const PagesData = await PagesReq.json()
-    const GalleriesData = await GalleriesReq.json()
+    // const PagesData = await PagesReq.json()
+    // const GalleriesData = await GalleriesReq.json()
 
     const staticData = ['/gallery', '/contacts']
 
     let fields: any[] = []
 
-    PagesData.docs.map(({ slug }) =>
-      fields.push({
-        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/${slug}`,
-        changefreq: 'daily',
-        priority: 0.9,
-      })
-    )
+    // PagesData.docs.map(({ slug }) =>
+    //   fields.push({
+    //     url: `${process.env.NEXT_PUBLIC_SERVER_URL}/${slug}`,
+    //     changefreq: 'daily',
+    //     priority: 0.9,
+    //   })
+    // )
 
-    GalleriesData.docs.map(({ slug }) =>
-      fields.push({
-        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/gallery/${slug}`,
-        changefreq: 'daily',
-        priority: 0.8,
-      })
-    )
+    // GalleriesData.docs.map(({ slug }) =>
+    //   fields.push({
+    //     url: `${process.env.NEXT_PUBLIC_SERVER_URL}/gallery/${slug}`,
+    //     changefreq: 'daily',
+    //     priority: 0.8,
+    //   })
+    // )
 
     staticData.map((url) => {
       fields.push({
