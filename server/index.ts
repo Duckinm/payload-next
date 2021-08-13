@@ -22,12 +22,12 @@ if (!process.env.NEXT_BUILD) {
   server.get('*', (req, res) => nextHandler(req, res))
 
   nextApp.prepare().then(() => {
-    server.listen(process.env.PORT, async () => {
+    server.listen(process.env.PORT || 3000, async () => {
       console.log(`Server listening on ${process.env.PORT}...`)
     })
   })
 } else {
-  server.listen(process.env.PORT, async () => {
+  server.listen(process.env.PORT || 3000, async () => {
     await nextBuild(path.join(__dirname, '../'))
     process.exit()
   })
