@@ -13,7 +13,11 @@ import Slider from 'src/components/Slider'
 import { fetcher } from 'src/utilities/fetcher'
 import useSWR from 'swr'
 
-const Page = (props) => {
+type Props = {
+  galleries?: any
+}
+
+const Page = (props: Props) => {
   const { locale } = useRouter()
   const { data } = useSWR('/api/galleries?locale=' + locale, fetcher, {
     initialData: props.galleries,

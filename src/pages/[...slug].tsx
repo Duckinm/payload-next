@@ -1,18 +1,25 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import Head from 'src/components/Head'
 import { ContactSection } from 'src/components/Layouts/ContactSection'
 import Layout from 'src/components/Layouts/Layout'
 import NotFound from 'src/components/NotFound'
 import RenderBlocks from 'src/components/RenderBlocks'
+import { fetcher } from 'src/utilities/fetcher'
+import useSWR from 'swr'
 
 type Props = {
   page?: any
-  gallery?: any
 }
 
-const Page = ({ page }: Props) => {
-  if (!page || page == null) <NotFound />
+const Page = (props: Props) => {
+  const { locale } = useRouter()
+  const { data } = useSWR('/api/pages?locale=' + locale, fetcher, {
+    initialData: props.page,
+  })
+
+  if (!data || data == null) <NotFound />
 
   let hostname
   if (typeof window !== 'undefined') {
@@ -22,16 +29,16 @@ const Page = ({ page }: Props) => {
   return (
     <>
       <Head
-        title={page?.title || page?.meta?.title}
-        description={page?.desc || page?.meta?.description}
+        title={data?.title || data?.meta?.title}
+        description={data?.desc || data?.meta?.description}
         ogImage={
-          page?.layout[0]?.heroImage
-            ? page.layout[0].heroImage?.cloudStorageUrl
+          data?.layout[0]?.heroImage
+            ? data.layout[0].heroImage?.cloudStorageUrl
             : ''
         }
       />
       <main>
-        <RenderBlocks layout={page?.layout} className="flex flex-col" />
+        <RenderBlocks layout={data?.layout} className="flex flex-col" />
         <ContactSection />
       </main>
     </>
