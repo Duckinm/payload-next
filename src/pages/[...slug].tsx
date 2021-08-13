@@ -13,11 +13,6 @@ type Props = {
 const Page = ({ data }: Props) => {
   if (!data || data == null) <NotFound />
 
-  let hostname
-  if (typeof window !== 'undefined') {
-    hostname = window.origin
-  }
-
   return (
     <>
       <Head
