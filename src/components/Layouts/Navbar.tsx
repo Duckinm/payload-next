@@ -1,21 +1,21 @@
 import { Transition } from '@headlessui/react'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { BarChart2, X } from 'react-feather'
 import CMSLink from 'src/components/CmsLink'
-import { Logo } from 'src/components/icons/Logo'
+// import { Logo } from 'src/components/icons/Logo'
 import LocaleSwitcher from 'src/components/LocaleSwitcher'
 import { Type as HeaderType } from 'src/globals/Menu'
 import { useScroll } from 'src/hooks/useScroll'
-import useSWR from 'swr'
+// import useSWR from 'swr'
 
 type Props = {
   header: HeaderType
 }
 
 const Nav = ({ header }) => {
-  const { data: settings } = useSWR('/api/globals/settings')
+  // const { data: settings } = useSWR('/api/globals/settings')
   const [scrollDir] = useScroll()
   const [isOpen, setIsOpen] = useState(false)
   const { asPath, locale } = useRouter()
@@ -40,7 +40,7 @@ const Nav = ({ header }) => {
       <div className="container flex items-center h-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center w-full">
           <div className="flex-shrink-0 mr-auto">
-            <Link href="/">
+            {/* <Link href="/">
               <a>
                 {settings?.icon?.logo ? (
                   <img
@@ -59,7 +59,7 @@ const Nav = ({ header }) => {
                   />
                 )}
               </a>
-            </Link>
+            </Link> */}
           </div>
           <div className="hidden mr-5 md:block">
             <div className="flex items-baseline ml-10 space-x-4">

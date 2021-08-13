@@ -2,7 +2,7 @@ import getConfig from 'next/config'
 import NextHead from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
-import useSWR from 'swr'
+// import useSWR from 'swr'
 
 const {
   publicRuntimeConfig: { SERVER_URL },
@@ -24,7 +24,7 @@ type Props = {
 }
 
 const Head: React.FC<Props> = ({ title, description, ogImage, keywords }) => {
-  const { data: settings } = useSWR('/api/globals/settings')
+  // const { data: settings } = useSWR('/api/globals/settings')
   const { asPath } = useRouter()
 
   const getTitle = () => {
@@ -32,7 +32,7 @@ const Head: React.FC<Props> = ({ title, description, ogImage, keywords }) => {
     return defaultTitle + titleSuffix
   }
 
-  if (!settings) <div></div>
+  // if (!settings) <div></div>
 
   return (
     <NextHead>
@@ -40,11 +40,12 @@ const Head: React.FC<Props> = ({ title, description, ogImage, keywords }) => {
       <link
         rel="icon"
         type="image/x-icon"
-        href={`${
-          settings?.icon?.favicon
-            ? settings.icon.favicon.cloudStorageUrl
-            : '/images/logo/logo-only.svg'
-        }`}
+        // href={`${
+        //   settings?.icon?.favicon
+        //     ? settings.icon.favicon.cloudStorageUrl
+        //     : '/images/logo/logo-only.svg'
+        // }`}
+        href="/images/logo/logo-only.svg"
       />
       <meta name="description" content={description || defaultDescription} />
       <meta name="keywords" content={keywords || defaultKeywords} />
