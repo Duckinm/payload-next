@@ -20,13 +20,16 @@ const ContactForm = () => {
   } = useForm<IFormInput>()
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const response = await fetch('/api/form-submissions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/form-submissions`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    )
 
     const result = await response.json()
     if (result.status >= 400) {

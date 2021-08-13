@@ -20,8 +20,7 @@
     "build": "NODE_ENV=production npm run build:payload && npm run build:server && NEXT_BUILD=true node dist/index.js",
     "seed": "node seed/index.js",
     "serve": "NODE_ENV=production node dist/index.js",
-    "lint": "next lint",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@babel/register": "^7.15.3",
