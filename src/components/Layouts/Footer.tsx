@@ -61,35 +61,43 @@ const Footer: React.FC<Props> = ({ footer, contacts }) => {
           <div className="flex flex-col items-start pt-5 text-gray-800 border-t lg:items-center border-grey-100 md:flex-row md:justify-between">
             <strong className="mb-4 font-normal md:mb-0 text-grey-100 text-link">
               © Copyright 2021 |
-              <Link href="/">
-                <a className="ml-2">{footer?.brand}</a>
-              </Link>
+              {footer?.brand && (
+                <Link href="/">
+                  <a className="ml-2">{footer.brand}</a>
+                </Link>
+              )}
             </strong>
             <div className="flex items-center space-x-4 text-white">
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-all hover:scale-125"
-                href={contacts?.facebook}
-              >
-                <FeatherIcon key="Facebook" name="Facebook" />
-              </a>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-all hover:scale-125"
-                href={contacts?.instagram}
-              >
-                <FeatherIcon key="Instagram" name="Instagram" />
-              </a>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-all hover:scale-125"
-                href={contacts?.line}
-              >
-                <LineIcon fill="#fff" hoverFill="#fff" />
-              </a>
+              {contacts?.facebook && (
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-all hover:scale-125"
+                  href={contacts.facebook}
+                >
+                  <FeatherIcon key="Facebook" name="Facebook" />
+                </a>
+              )}
+              {contacts?.instagram && (
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-all hover:scale-125"
+                  href={contacts.instagram}
+                >
+                  <FeatherIcon key="Instagram" name="Instagram" />
+                </a>
+              )}
+              {contacts?.line && (
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-all hover:scale-125"
+                  href={contacts.line}
+                >
+                  <LineIcon fill="#fff" hoverFill="#fff" />
+                </a>
+              )}
               <button
                 type="button"
                 onClick={backToTop}

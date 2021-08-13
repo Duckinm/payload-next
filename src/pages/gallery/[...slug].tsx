@@ -1,6 +1,5 @@
 import 'keen-slider/keen-slider.min.css'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import { CardInfo } from 'src/components/Blocks/CardInfo'
 import Breadcrumb from 'src/components/Breadcrumb'
@@ -10,19 +9,12 @@ import Layout from 'src/components/Layouts/Layout'
 import NotFound from 'src/components/NotFound'
 import { Shares } from 'src/components/Shares'
 import Slider from 'src/components/Slider'
-import { fetcher } from 'src/utilities/fetcher'
-import useSWR from 'swr'
 
 type Props = {
-  galleries?: any
+  data?: any
 }
 
-const Page = (props: Props) => {
-  const { locale } = useRouter()
-  const { data } = useSWR('/api/galleries?locale=' + locale, fetcher, {
-    initialData: props.galleries,
-  })
-
+const Page = ({ data }: Props) => {
   if (!data) <NotFound />
 
   let hostname
@@ -97,20 +89,20 @@ Page.getLayout = (page: ReactNode) => <Layout>{page}</Layout>
 export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const galleries = await fetcher(
+  const galleriesReq = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=${locale}`
   )
-  // const galleriesData = await galleriesReq.json()
+  const galleriesData = await galleriesReq.json()
 
   return {
     props: {
-      galleries: galleries.docs[0],
+      data: galleriesData.docs[0],
     },
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const galleriesReq = await fetcher(
+  const galleriesReq = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=all?limit=100`
   )
   const galleriesData = await galleriesReq.json()

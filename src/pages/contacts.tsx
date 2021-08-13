@@ -41,82 +41,93 @@ const Contact = () => {
                     Find us?
                   </h1>
                   <div className="flex flex-col pl-10 space-y-5">
-                    <div className="flex">
-                      <Phone />
+                    {contacts?.telList ? (
                       <div className="flex">
-                        {contacts?.telList?.map(({ tel }, i) =>
-                          contacts.telList.length !== i + 1 ? (
-                            <Link href={`tel://${tel}`} key={tel}>
-                              <a className="ml-2 text-2xl leading-none font-minimal">
-                                {tel}
-                              </a>
-                            </Link>
-                          ) : (
-                            <Link href={`tel://${tel}`} key={tel}>
-                              <a className="ml-2 text-2xl leading-none font-minimal">
-                                {tel}
-                              </a>
-                            </Link>
-                          )
-                        )}
+                        <Phone />
+                        <div className="flex">
+                          {contacts.telList?.map(({ tel }, i) =>
+                            contacts.telList.length !== i + 1 ? (
+                              <Link href={`tel://${tel}`} key={tel}>
+                                <a className="ml-2 text-2xl leading-none font-minimal">
+                                  {tel}
+                                </a>
+                              </Link>
+                            ) : (
+                              <Link href={`tel://${tel}`} key={tel}>
+                                <a className="ml-2 text-2xl leading-none font-minimal">
+                                  {tel}
+                                </a>
+                              </Link>
+                            )
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex">
-                      <Mail />
+                    ) : (
+                      ''
+                    )}
+                    {contacts?.emalList ? (
                       <div className="flex">
-                        {contacts?.emailList?.map(({ email }, i) =>
-                          contacts.emailList.length !== i + 1 ? (
-                            <Link href={`mailto://${email}`} key={email}>
-                              <a className="ml-2 text-2xl leading-none font-minimal">
-                                {email},
-                              </a>
-                            </Link>
-                          ) : (
-                            <Link href={`mailto://${email}`} key={email}>
-                              <a className="ml-2 text-2xl leading-none font-minimal">
-                                {email}
-                              </a>
-                            </Link>
-                          )
-                        )}
+                        <Mail />
+                        <div className="flex">
+                          {contacts.emailList?.map(({ email }, i) =>
+                            contacts.emailList.length !== i + 1 ? (
+                              <Link href={`mailto://${email}`} key={email}>
+                                <a className="ml-2 text-2xl leading-none font-minimal">
+                                  {email},
+                                </a>
+                              </Link>
+                            ) : (
+                              <Link href={`mailto://${email}`} key={email}>
+                                <a className="ml-2 text-2xl leading-none font-minimal">
+                                  {email}
+                                </a>
+                              </Link>
+                            )
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex"
-                      key={contacts?.facebook}
-                      href={contacts?.facebook}
-                    >
-                      <FeatherIcon key="Facebook" name="Facebook" />
-                      <div className="ml-2 text-2xl leading-none font-minimal">
-                        {contacts?.facebook}
-                      </div>
-                    </a>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex"
-                      key={contacts?.instagram}
-                      href={contacts?.instagram}
-                    >
-                      <FeatherIcon key="Instagram" name="Instagram" />
-                      <div className="ml-2 text-2xl leading-none font-minimal">
-                        {contacts?.instagram}
-                      </div>
-                    </a>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex"
-                      key={contacts?.line}
-                      href={contacts?.line}
-                    >
-                      <LineIcon fill="#000" hoverFill="#000" />
-                      <div className="ml-2 text-2xl leading-none font-minimal">
-                        {contacts?.line}
-                      </div>
-                    </a>
+                    ) : (
+                      ''
+                    )}
+                    {contacts?.facebook && (
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex"
+                        href={contacts.facebook}
+                      >
+                        <FeatherIcon key="Facebook" name="Facebook" />
+                        <div className="ml-2 text-2xl leading-none font-minimal">
+                          {contacts.facebook}
+                        </div>
+                      </a>
+                    )}
+                    {contacts?.instagram && (
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex"
+                        href={contacts.instagram}
+                      >
+                        <FeatherIcon key="Instagram" name="Instagram" />
+                        <div className="ml-2 text-2xl leading-none font-minimal">
+                          {contacts.instagram}
+                        </div>
+                      </a>
+                    )}
+                    {contacts?.line && (
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex"
+                        href={contacts.line}
+                      >
+                        <LineIcon fill="#000" hoverFill="#000" />
+                        <div className="ml-2 text-2xl leading-none font-minimal">
+                          {contacts.line}
+                        </div>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

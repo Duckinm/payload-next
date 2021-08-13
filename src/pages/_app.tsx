@@ -14,14 +14,13 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext)
 
-  // Analytics Global Fetch
-  const settings = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings`
-  ).then((res) => res.json())
+  // const settings = await fetch(
+  //   `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings`
+  // ).then((res) => res.json())
 
   return {
     ...appProps,
-    settings,
+    // settings,
   }
 }
 

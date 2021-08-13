@@ -1,24 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import Head from 'src/components/Head'
 import { ContactSection } from 'src/components/Layouts/ContactSection'
 import Layout from 'src/components/Layouts/Layout'
 import NotFound from 'src/components/NotFound'
 import RenderBlocks from 'src/components/RenderBlocks'
-import { fetcher } from 'src/utilities/fetcher'
-import useSWR from 'swr'
 
 type Props = {
-  page?: any
+  data?: any
 }
 
-const Page = (props: Props) => {
-  const { locale } = useRouter()
-  const { data } = useSWR('/api/pages?locale=' + locale, fetcher, {
-    initialData: props.page,
-  })
-
+const Page = ({ data }: Props) => {
   if (!data || data == null) <NotFound />
 
   let hostname
@@ -32,7 +24,7 @@ const Page = (props: Props) => {
         title={data?.title || data?.meta?.title}
         description={data?.desc || data?.meta?.description}
         ogImage={
-          data?.layout[0]?.heroImage
+          data?.layout?.heroImage
             ? data.layout[0].heroImage?.cloudStorageUrl
             : ''
         }
@@ -49,14 +41,14 @@ Page.getLayout = (page: ReactNode) => <Layout>{page}</Layout>
 export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const page = await fetcher(
+  const pageReq = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=${locale}`
   )
-  // const pageData = await pageReq.json()
+  const pageData = await pageReq.json()
 
   return {
     props: {
-      page: page.docs[0] || null,
+      data: pageData.docs[0] || null,
     },
   }
 }
