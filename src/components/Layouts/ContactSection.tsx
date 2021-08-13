@@ -1,8 +1,9 @@
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-// import useSWR from 'swr'
+import { fetcher } from 'src/utilities/fetcher'
+import useSWR from 'swr'
 
 interface IFormInput {
   mail: string
@@ -101,15 +102,15 @@ const ContactForm = () => {
 }
 
 export const ContactSection = () => {
-  // const { locale } = useRouter()
-  // const { data } = useSWR(`/api/globals/settings?locale=${locale}`)
+  const { locale } = useRouter()
+  const { data } = useSWR(`/api/globals/settings?locale=${locale}`, fetcher)
 
   // console.log(/^(?:\s|<br *\/?>)*$/.test(data?.contactInfo?.desc))
 
   return (
     <section id="submission" className="container my-20 lg:my-40 lg:max-w-4xl">
       <div className="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0">
-        {/* <div className="w-full text-center md:w-1/2">
+        <div className="w-full text-center md:w-1/2">
           <h3 className="font-cera tracking-[-4%] text-4xl lg:text-5xl text-primary mb-8">
             {data?.contactInfo?.title
               ? data.contactInfo.title
@@ -122,7 +123,7 @@ export const ContactSection = () => {
             non-obligations. Start by filling out the following form and send it
             to us. We’ll contact you promptly.`}
           </p>
-        </div> */}
+        </div>
         <ContactForm />
       </div>
     </section>

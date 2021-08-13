@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react'
 import { ChevronRight } from 'react-feather'
 import Head from 'src/components/Head'
 import Layout from 'src/components/Layouts/Layout'
+import { fetcher } from 'src/utilities/fetcher'
 import useSWR from 'swr'
 
 const Card = (props) => {
@@ -50,9 +51,9 @@ const Card = (props) => {
 
 const Gallery = () => {
   const { locale } = useRouter()
-  const { data: galleries } = useSWR('/api/galleries/?locale=' + locale)
+  const { data } = useSWR('/api/galleries/?locale=' + locale, fetcher)
 
-  if (!galleries) return <div>Loading...</div>
+  if (!data) return <div>Loading...</div>
 
   return (
     <>
@@ -63,7 +64,7 @@ const Gallery = () => {
             Types Available:
           </h1>
           <div className="flex flex-col space-y-5 lg:space-y-8">
-            {galleries.docs.map(({ title, description, slug, slider }, key) => (
+            {data.docs.map(({ title, description, slug, slider }, key) => (
               <Card
                 key={key}
                 title={title}
@@ -80,5 +81,4 @@ const Gallery = () => {
 }
 
 Gallery.getLayout = (page: ReactNode) => <Layout>{page}</Layout>
-
 export default Gallery
