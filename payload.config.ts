@@ -13,7 +13,7 @@ import { s3Adapter } from './src/lib/s3'
 dotenv.config()
 
 export default buildConfig({
-  serverURL: 'http://localhost:3000',
+  serverURL: `${process.env.PAYLOAD_PUBLIC_SERVER_URL}`,
   collections: [Galleries, Pages, FormSubmission, Media],
   globals: [Menu, Contacts, Settings],
   localization: {
