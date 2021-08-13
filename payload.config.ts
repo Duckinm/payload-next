@@ -13,7 +13,7 @@ import { s3Adapter } from './src/lib/s3'
 dotenv.config()
 
 export default buildConfig({
-  serverURL: 'https://asiana.herokuapp.com/',
+  serverURL: 'http:localhost:3000',
   csrf: ['https://asiana.herokuapp.com/', 'https://asianaresidence.com'],
   collections: [Galleries, Pages, FormSubmission, Media],
   globals: [Menu, Contacts, Settings],
