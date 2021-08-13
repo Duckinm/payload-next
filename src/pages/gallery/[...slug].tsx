@@ -97,20 +97,20 @@ Page.getLayout = (page: ReactNode) => <Layout>{page}</Layout>
 export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const galleriesReq = await fetch(
+  const galleries = await fetcher(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=${locale}`
   )
-  const galleriesData = await galleriesReq.json()
+  // const galleriesData = await galleriesReq.json()
 
   return {
     props: {
-      galleries: galleriesData.docs[0],
+      galleries: galleries.docs[0],
     },
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const galleriesReq = await fetch(
+  const galleriesReq = await fetcher(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=all?limit=100`
   )
   const galleriesData = await galleriesReq.json()

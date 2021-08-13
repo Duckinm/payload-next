@@ -49,14 +49,14 @@ Page.getLayout = (page: ReactNode) => <Layout>{page}</Layout>
 export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const pageReq = await fetch(
+  const page = await fetcher(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=${locale}`
   )
-  const pageData = await pageReq.json()
+  // const pageData = await pageReq.json()
 
   return {
     props: {
-      page: pageData.docs[0] || null,
+      page: page.docs[0] || null,
     },
   }
 }
