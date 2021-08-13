@@ -1,0 +1,89 @@
+.text-display {
+  letter-spacing: -2%;
+  line-height: 75%;
+  font-size: 90px;
+  @apply font-minimal font-bold;
+
+  @include media-breakpoint-down(sm) {
+    @apply leading-normal;
+    letter-spacing: -2%;
+    line-height: 75%;
+    font-size: 52px;
+    @apply font-minimal font-bold;
+  }
+}
+
+.text-display-2 {
+  letter-spacing: 10;
+  @apply text-7xl font-cera font-bold italic;
+
+  @include media-breakpoint-down(lg) {
+    letter-spacing: 10;
+    @apply text-5xl font-cera font-bold italic;
+  }
+
+  @include media-breakpoint-down(md) {
+    letter-spacing: 10;
+    @apply text-4xl font-cera font-bold italic;
+  }
+
+  @include media-breakpoint-down(xs) {
+    letter-spacing: 10;
+    @apply text-2xl font-cera font-bold italic;
+  }
+}
+
+.text-headline {
+  letter-spacing: -2%;
+  @apply text-5xl font-minimal font-bold;
+
+  @include media-breakpoint-down(sm) {
+    @apply text-4xl leading-none font-minimal;
+  }
+}
+
+.text-headline-2 {
+  @apply text-4xl font-minimal;
+
+  @include media-breakpoint-down(sm) {
+    @apply text-2xl leading-none font-minimal;
+  }
+}
+
+.text-headline-3 {
+  @apply text-3xl font-bold font-minimal;
+}
+
+.text-headline-4 {
+  @apply text-2xl font-minimal leading-none font-bold;
+
+  @include media-breakpoint-down(sm) {
+    @apply text-xl leading-none  font-minimal;
+  }
+}
+
+.text-paragraph {
+  font-size: 28px;
+  @apply font-minimal leading-none;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 24px;
+    @apply leading-none font-minimal;
+  }
+}
+
+.text-paragraph-2 {
+  font-size: 28px;
+  // line-height: 150%;
+  @apply font-cera font-bold;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 24px;
+    // line-height: 150%;
+    @apply font-cera font-bold;
+  }
+}
+
+.text-link {
+  @apply text-xl leading-none font-minimal;
+}

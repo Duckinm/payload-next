@@ -1,0 +1,35 @@
+form#contactForm {
+  input {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
+
+    @apply w-full px-5 py-2 text-2xl rounded-lg text-tertiary bg-tertiary-light font-minimal focus:outline-none focus:ring-2 focus:ring-opacity-50;
+
+    &.error {
+      @apply focus:ring-red-700;
+    }
+  }
+
+  textarea {
+    @apply w-full h-40 px-5 py-2 text-2xl rounded-lg resize-none text-tertiary bg-tertiary-light font-minimal focus:outline-none focus:ring-2;
+
+    &.error {
+      @apply focus:ring-red-700;
+    }
+  }
+
+  button[type='submit'] {
+    @apply w-full px-5 py-3 text-2xl text-white rounded-lg font-minimal bg-secondary;
+  }
+
+  .error-info {
+    @apply self-start italic leading-none text-red-700;
+  }
+}

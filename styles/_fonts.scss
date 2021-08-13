@@ -1,0 +1,42 @@
+@layer base {
+  @font-face {
+    font-family: 'Cera Pro';
+    font-weight: 400;
+    src: url('/fonts/CeraPro-Light.woff2') format('woff2'),
+      url('/fonts/CeraPro-Light.woff') format('woff');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Cera Pro';
+    font-weight: 700;
+    src: url('/fonts/CeraPro-Medium.woff2') format('woff2'),
+      url('/fonts/CeraPro-Medium.woff') format('woff');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'FC Minimal';
+    font-weight: 400;
+    src: url('/fonts/FCMinimalRegular.woff2') format('woff2'),
+      url('/fonts/FCMinimalRegular.woff') format('woff');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'FC Minimal';
+    font-weight: 400;
+    font-style: italic;
+    src: url('/fonts/FCMinimalItalic.woff2') format('woff2'),
+      url('/fonts/FCMinimalItalic.woff') format('woff');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'FC Minimal';
+    font-weight: 700;
+    src: url('/fonts/FCMinimalBold.woff2') format('woff2'),
+      url('/fonts/FCMinimalBold.woff') format('woff');
+    font-display: swap;
+  }
+}

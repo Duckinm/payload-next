@@ -1,0 +1,35 @@
+.button-group {
+  letter-spacing: -4%;
+  @apply flex-1 px-2 py-1 text-sm font-cera font-bold leading-none text-center lg:text-base border-primary cursor-pointer bg-white text-primary border-r-2 border-t-2 border-b-2;
+
+  @include media-breakpoint-down(lg) {
+    @apply leading-normal;
+  }
+
+  &.first {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    @apply border-l-2;
+  }
+
+  &.end {
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+
+  &.active {
+    @apply bg-primary text-white;
+  }
+}
+
+.card-group {
+  width: auto;
+  height: 348px;
+  @apply relative;
+
+  .card {
+    width: 100%;
+    height: 100%;
+    @apply absolute inset-0 object-cover transition;
+  }
+}
