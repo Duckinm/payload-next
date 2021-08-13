@@ -5,13 +5,18 @@ import { Facebook, Linkedin, Mail, Twitter } from 'react-feather'
 import { CopyUrlButton } from 'src/components/CopyClipboard'
 import { LineIcon } from 'src/components/icons/LineIcon'
 import SocialButton from 'src/components/icons/SocialButton'
+import { fetcher } from 'src/utilities/fetcher'
+import useSWR from 'swr'
 
 type Props = {
   data?: any
 }
 
-export const Shares = ({ data }: Props) => {
+export const Shares = (props: Props) => {
   const { asPath } = useRouter()
+  const { data } = useSWR('/api/globals/settings', fetcher, {
+    initialData: props.data,
+  })
 
   let hostname
   if (typeof window !== 'undefined') {
@@ -67,15 +72,13 @@ export const Shares = ({ data }: Props) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const settingsReq = await fetch(
+  const settings = await fetcher(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings`
   )
 
-  const settingsData = await settingsReq.json()
-
   return {
     props: {
-      data: settingsData,
+      data: settings,
     },
   }
 }

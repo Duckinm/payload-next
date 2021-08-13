@@ -1,16 +1,24 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import Head from 'src/components/Head'
 import { ContactSection } from 'src/components/Layouts/ContactSection'
 import Layout from 'src/components/Layouts/Layout'
 import NotFound from 'src/components/NotFound'
 import RenderBlocks from 'src/components/RenderBlocks'
+import { fetcher } from 'src/utilities/fetcher'
+import useSWR from 'swr'
 
 type Props = {
-  data?: any
+  pages?: any
 }
 
-const Page = ({ data }: Props) => {
+const Page = (props: Props) => {
+  const { locale } = useRouter()
+  const { data } = useSWR('/api/galleries?locale=' + locale, fetcher, {
+    initialData: props.pages,
+  })
+
   if (!data || data == null) <NotFound />
 
   return (
@@ -36,14 +44,13 @@ Page.getLayout = (page: ReactNode) => <Layout>{page}</Layout>
 export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const pageReq = await fetch(
+  const pages = await fetcher(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=${locale}`
   )
-  const pageData = await pageReq.json()
 
   return {
     props: {
-      data: pageData.docs[0] || null,
+      pages: pages.docs[0] || null,
     },
   }
 }
