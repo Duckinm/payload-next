@@ -5,6 +5,7 @@ import Navbar from 'src/components/Layouts/Navbar'
 import GlobalCustomAlert from 'src/components/Toast'
 import { fetcher } from 'src/utilities/fetcher'
 import useSWR from 'swr'
+import Loader from '../Loader'
 
 type Props = {
   title?: string
@@ -18,7 +19,7 @@ const Layout = (props: Props) => {
   const { data: menu } = useSWR('/api/globals/menu?locale=' + locale, fetcher)
   const { data: contacts } = useSWR('/api/globals/contacts', fetcher)
 
-  if (!menu || !contacts) return <div>Loading...</div>
+  if (!menu || !contacts) return <Loader />
 
   return (
     <>
