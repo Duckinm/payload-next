@@ -10,7 +10,7 @@ const server = express()
 const request = require('request')
 const fixieRequest = request.defaults({ proxy: process.env.FIXIE_URL })
 
-fixieRequest('http://www.example.com', (err, res, body) => {
+fixieRequest(process.env.PAYLOAD_PUBLIC_SERVER_URL, (err, res, body) => {
   console.log(`Got response: ${res.statusCode}`)
 })
 
