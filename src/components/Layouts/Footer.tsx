@@ -19,7 +19,7 @@ const Footer: React.FC<Props> = ({ footer, contacts }) => {
 
   return (
     <>
-      <img src="/images/shape.svg" alt="" className="w-full -mb-1" />
+      {/* <img src="/images/shape.svg" alt="" className="w-full -mb-1" /> */}
       <footer className="relative bg-primary">
         <div className="container py-10 mb-2">
           <div className="grid grid-cols-1 text-gray-800 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
