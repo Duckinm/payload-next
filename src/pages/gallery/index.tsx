@@ -53,8 +53,6 @@ const Gallery = () => {
   const { locale } = useRouter()
   const { data } = useSWR('/api/galleries/?locale=' + locale, fetcher)
 
-  if (!data) return <div>Loading...</div>
-
   return (
     <>
       <Head />
@@ -64,7 +62,7 @@ const Gallery = () => {
             Types Available:
           </h1>
           <div className="flex flex-col space-y-5 lg:space-y-8">
-            {data.docs.map(({ title, description, slug, slider }, key) => (
+            {data?.docs.map(({ title, description, slug, slider }, key) => (
               <Card
                 key={key}
                 title={title}
