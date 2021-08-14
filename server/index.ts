@@ -7,12 +7,6 @@ import '../src/lib/env'
 
 const dev = process.env.NODE_ENV !== 'production'
 const server = express()
-const request = require('request')
-const fixieRequest = request.defaults({ proxy: process.env.FIXIE_URL })
-
-fixieRequest(process.env.PAYLOAD_PUBLIC_SERVER_URL, (err, res, body) => {
-  console.log(`Got response: ${res.statusCode}`)
-})
 
 payload.init({
   license: `${process.env.PAYLOAD_LICENSE}`,
