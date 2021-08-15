@@ -15,8 +15,6 @@ payload.init({
   express: server,
 })
 
-console.log(process.env.PAYLOAD_LICENSE_KEY)
-
 if (!process.env.NEXT_BUILD) {
   const nextApp = next({ dev })
   const nextHandler = nextApp.getRequestHandler()

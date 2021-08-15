@@ -13,10 +13,11 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
 
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext)
-
   const settings = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings`
   ).then((res) => res.json())
+
+  console.log(process.env)
 
   return {
     ...appProps,
