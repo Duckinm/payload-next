@@ -17,8 +17,6 @@ MyApp.getInitialProps = async (appContext) => {
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings`
   ).then((res) => res.json())
 
-  console.log(process.env)
-
   return {
     ...appProps,
     settings,
