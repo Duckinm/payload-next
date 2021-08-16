@@ -39,17 +39,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var dotenv_1 = __importDefault(require("dotenv"));
 var express_1 = __importDefault(require("express"));
 var next_1 = __importDefault(require("next"));
 var build_1 = __importDefault(require("next/dist/build"));
 var path_1 = __importDefault(require("path"));
 var payload_1 = __importDefault(require("payload"));
-dotenv_1.default.config();
+require("../src/lib/env");
 var dev = process.env.NODE_ENV !== 'production';
 var server = express_1.default();
 payload_1.default.init({
-    license: "" + process.env.PAYLOAD_LICENSE_KEY,
+    license: '804def11-23da-4f8d-b976-05e047a78623',
     secret: "" + process.env.PAYLOAD_SECRET_KEY,
     mongoURL: "" + process.env.MONGO_URL,
     express: server,
@@ -59,7 +58,7 @@ if (!process.env.NEXT_BUILD) {
     var nextHandler_1 = nextApp.getRequestHandler();
     server.get('*', function (req, res) { return nextHandler_1(req, res); });
     nextApp.prepare().then(function () {
-        server.listen(process.env.PORT, function () { return __awaiter(void 0, void 0, void 0, function () {
+        server.listen(process.env.PORT || 3000, function () { return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 console.log("Server listening on " + process.env.PORT + "...");
                 return [2 /*return*/];
@@ -68,7 +67,7 @@ if (!process.env.NEXT_BUILD) {
     });
 }
 else {
-    server.listen(process.env.PORT, function () { return __awaiter(void 0, void 0, void 0, function () {
+    server.listen(process.env.PORT || 3000, function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, build_1.default(path_1.default.join(__dirname, '../'))];
