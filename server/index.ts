@@ -9,7 +9,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const server = express()
 
 payload.init({
-  license: `${process.env.PAYLOAD_LICENSE_KEY}`,
+  license: '804def11-23da-4f8d-b976-05e047a78623',
   secret: `${process.env.PAYLOAD_SECRET_KEY}`,
   mongoURL: `${process.env.MONGO_URL}`,
   express: server,
