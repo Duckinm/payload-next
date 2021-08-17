@@ -24,7 +24,7 @@ const border: Field = {
   fields: [
     {
       name: 'isRound',
-      label: 'Enable Border',
+      label: 'Enable Border Rounded',
       type: 'checkbox',
       defaultValue: false,
     },
@@ -44,7 +44,6 @@ const border: Field = {
           label: 'Round Size',
           type: 'text',
           defaultValue: '4px',
-          required: true,
           admin: {
             placeholder: 'Example... 4px',
             width: '50%',
@@ -56,7 +55,6 @@ const border: Field = {
           type: 'select',
           defaultValue: 'top',
           hasMany: true,
-          required: true,
           options: [
             {
               label: 'Top Left',
@@ -105,7 +103,6 @@ const border: Field = {
           label: 'Stroke Size',
           type: 'text',
           defaultValue: '1px',
-          required: true,
           admin: {
             placeholder: 'Example... 2px',
             width: '50%',
@@ -117,7 +114,6 @@ const border: Field = {
           type: 'select',
           defaultValue: 'top',
           hasMany: true,
-          required: true,
           options: [
             {
               label: 'Top',
