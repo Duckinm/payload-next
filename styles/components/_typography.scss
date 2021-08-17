@@ -15,7 +15,7 @@
 
 .text-display-2 {
   letter-spacing: 10;
-  @apply text-7xl font-cera font-bold italic;
+  @apply text-6xl font-cera font-bold italic;
 
   @include media-breakpoint-down(lg) {
     letter-spacing: 10;
