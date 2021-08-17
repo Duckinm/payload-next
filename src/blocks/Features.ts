@@ -45,7 +45,6 @@ export const Features: Block = {
         {
           name: 'text',
           type: 'text',
-          required: true,
           localized: true,
         },
         color,
