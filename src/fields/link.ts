@@ -9,6 +9,7 @@ export type Type = {
     value: PageType & GalleriesType
   }
   url?: string
+  checkbox?: boolean
 }
 
 const link: Field = {
@@ -71,6 +72,12 @@ const link: Field = {
           },
         },
       ],
+    },
+    {
+      name: 'checkbox',
+      type: 'checkbox',
+      label: 'Open in a new tab',
+      defaultValue: false,
     },
   ],
 }
