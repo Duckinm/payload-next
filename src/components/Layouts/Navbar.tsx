@@ -64,22 +64,20 @@ const Nav = ({ header, settings }: Props) => {
           </div>
           <div className="hidden mr-5 md:block">
             <div className="flex items-baseline ml-10 space-x-4">
-              {(Array.isArray(header?.nav) && header.nav.length) > 0 && (
-                <ul className="hidden md:flex lg:items-stretch lg:justify-end">
-                  {header?.nav?.map(({ link }) => (
-                    <li
-                      key={link.label}
-                      className={` ${
-                        scrollDir === 'up' || noHome
-                          ? 'text-tertiary hover:contrast-200'
-                          : 'text-white hover:contrast-75'
-                      } relative flex items-center px-4 py-2 text-2xl flex-no-grow flex-no-shrink font-minimal transition `}
-                    >
-                      <CMSLink {...link}>{link.label}</CMSLink>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <ul className="hidden md:flex lg:items-stretch lg:justify-end">
+                {header?.nav?.map(({ link }) => (
+                  <li
+                    key={link.label}
+                    className={` ${
+                      scrollDir === 'up' || noHome
+                        ? 'text-tertiary hover:contrast-200'
+                        : 'text-white hover:contrast-75'
+                    } relative flex items-center px-4 py-2 text-2xl flex-no-grow flex-no-shrink font-minimal transition `}
+                  >
+                    <CMSLink {...link}>{link.label}</CMSLink>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
           {locale && (
@@ -124,29 +122,27 @@ const Nav = ({ header, settings }: Props) => {
         {(ref) => (
           <div className="md:hidden" id="mobile-menu">
             <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {(Array.isArray(header?.nav) && header.nav.length) > 0 && (
-                <ul
-                  role="menu"
-                  className={`${
-                    scrollDir === 'up' || noHome
-                      ? 'shadow-lg bg-white/95 backdrop-blur-2xl'
-                      : 'bg-white/40 backdrop-blur-md'
-                  }  rounded-md shadow-lg`}
-                >
-                  {header?.nav?.map(({ link }) => (
-                    <li
-                      key={link.label}
-                      className={`${
-                        scrollDir === 'up' || noHome
-                          ? 'text-tertiary'
-                          : 'text-tertiary contrast-150'
-                      } flex w-full px-4 py-2 text-2xl  hover:contrast-200 font-minimal`}
-                    >
-                      <CMSLink {...link}>{link.label}</CMSLink>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <ul
+                role="menu"
+                className={`${
+                  scrollDir === 'up' || noHome
+                    ? 'shadow-lg bg-white/95 backdrop-blur-2xl'
+                    : 'bg-white/40 backdrop-blur-md'
+                }  rounded-md shadow-lg`}
+              >
+                {header?.nav?.map(({ link }) => (
+                  <li
+                    key={link.label}
+                    className={` ${
+                      scrollDir === 'up' || noHome
+                        ? 'text-tertiary'
+                        : 'text-tertiary contrast-150'
+                    } flex w-full px-4 py-2 text-2xl  hover:contrast-200 font-minimal`}
+                  >
+                    <CMSLink {...link}>{link.label}</CMSLink>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         )}
