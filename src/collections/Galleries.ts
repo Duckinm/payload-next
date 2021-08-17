@@ -31,7 +31,7 @@ export const Galleries: CollectionConfig = {
     preview: (doc: any, { token, locale }) => {
       const { slug } = doc
       if (slug)
-        return `http://localhost:3000/gallery/${slug}?preview=true&locale=${locale}`
+        return `https://asianaresidence.com/gallery/${slug}?preview=true&locale=${locale}`
 
       return null ?? ''
     },
