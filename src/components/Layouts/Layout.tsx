@@ -1,19 +1,24 @@
-import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 import Footer from 'src/components/Layouts/Footer'
 import Navbar from 'src/components/Layouts/Navbar'
 import GlobalCustomAlert from 'src/components/Toast'
-import { Type as ContactsType } from 'src/globals/Contacts'
-import { Type as MenuType } from 'src/globals/Menu'
+import { fetcher } from 'src/utilities/fetcher'
+import useSWR from 'swr'
 import Loader from '../Loader'
 
 type Props = {
+  title?: string
   children: ReactNode
-  menu?: MenuType
-  contacts?: ContactsType
 }
 
-const Layout = ({ children, menu, contacts }: Props) => {
+const Layout = (props: Props) => {
+  const { children } = props
+  const { locale } = useRouter()
+
+  const { data: menu } = useSWR('/api/globals/menu?locale=' + locale, fetcher)
+  const { data: contacts } = useSWR('/api/globals/contacts', fetcher)
+
   if (!menu || !contacts) return <Loader />
 
   return (
@@ -24,23 +29,6 @@ const Layout = ({ children, menu, contacts }: Props) => {
       <Footer footer={menu} contacts={contacts} />
     </>
   )
-}
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const menu = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/menu?locale=${locale}`
-  ).then((res) => res.json())
-
-  const contacts = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/contacts`
-  ).then((res) => res.json())
-
-  return {
-    props: {
-      menu: menu,
-      contacts: contacts,
-    },
-  }
 }
 
 export default Layout
