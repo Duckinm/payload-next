@@ -8,10 +8,10 @@ const marginBottomData = {
 }
 
 const marginTopData = {
-  small: 'mt-3 lg:mt-8',
-  medium: 'mt-10 lg:mt-20',
-  large: 'mt-20 lg:mt-40',
-  none: 'mt-0',
+  small: 'pt-3 lg:pt-8',
+  medium: 'pt-10 lg:pt-20',
+  large: 'pt-20 lg:pt-40',
+  none: 'pt-0',
 }
 
 export const useSpacer = (props: {
