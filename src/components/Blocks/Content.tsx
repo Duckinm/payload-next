@@ -19,17 +19,19 @@ export const Content: React.FC<Type> = ({ content, container, spacer }) => {
   return (
     <div
       style={{ backgroundColor: container.color ? container.color : '#fff' }}
+      className={`${
+        container.grid.size == 'container' ? 'container' : 'w-full'
+      } ${mt} ${mb}`}
     >
       <div
         className={`
-        ${container.grid.size == 'container' ? 'container' : 'w-full'}
          ${
            container.grid.alignment == 'left'
-             ? 'items-start'
+             ? 'items-start text-left'
              : 'center'
-             ? 'items-center'
-             : 'items-end'
-         } ${mb} ${mt} flex flex-col mx-3 lg:mx-5`}
+             ? 'items-center text-center'
+             : 'items-end text-right'
+         } flex flex-col mx-3 lg:mx-5`}
       >
         <h1
           className="mb-3 lg:mb-8 text-display"
@@ -42,7 +44,7 @@ export const Content: React.FC<Type> = ({ content, container, spacer }) => {
             : 'Cherish all your happy moments'}
         </h1>
         <p
-          className="leading-snug lg:w-1/2 lg:text-center text-headline-2 text-tertiary"
+          className="leading-snug text-headline-2 text-tertiary"
           style={{
             color: content?.description?.color
               ? content.description.color

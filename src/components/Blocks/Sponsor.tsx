@@ -22,11 +22,14 @@ export const Sponsor: React.FC<Type> = ({
     }
   }, [firstRender, marginBottom, marginTop])
   return (
-    <div style={{ backgroundColor: color ? color : '#fff' }}>
+    <div
+      style={{ backgroundColor: color ? color : '#fff' }}
+      className={`${mt} ${mb}`}
+    >
       <div
         className={`${
           grid.size == 'full' ? 'w-full' : 'container'
-        }  h-auto py-20 bg-sponsor-pattern  ${mt} ${mb}`}
+        }  h-auto py-20 bg-sponsor-pattern `}
       >
         <div
           className={`flex flex-col justify-center w-full h-full px-3 mx-auto md:max-w-xl ${
@@ -55,10 +58,9 @@ export const Sponsor: React.FC<Type> = ({
               color: content?.title?.color ? content.title.color : '#000',
             }}
           >
-            {content?.title?.text
-              ? content.title.text
-              : 'Do you want to create your own future within real-estate and do business locally and globally?'}
+            {content?.title?.text}
           </h3>
+
           <p
             className="text-2xl leading-none text-center lg:text-3xl font-minimal "
             style={{
@@ -67,9 +69,7 @@ export const Sponsor: React.FC<Type> = ({
                 : '#000',
             }}
           >
-            {content?.description?.text
-              ? content.description.text
-              : 'Become a franchisee in Asiana’s quarter century old chain, you will become a part of the growing family. This will mean a safer and less risky start of your dream on local or international level'}
+            {content?.description?.text}
           </p>
         </div>
       </div>

@@ -44,7 +44,7 @@ const FeatureCard: React.FC<Props> = ({
       <div
         className={`${align == 'right' ? 'lg:col-start-2' : ''} lg:col-span-2`}
       >
-        <Slider data={slider} className="xl:h-[412.88px] mb-8" />
+        <Slider data={slider} className="xl:h-[540.88px] mb-8" />
       </div>
 
       <div
@@ -92,11 +92,11 @@ export const Features: React.FC<Type> = ({
     >
       <div
         style={{ color: title.color ? title.color : '#000' }}
-        className="absolute top-[-18px] md:top-[-25px] lg:top-[-5%] left-1/2 -translate-x-1/2 flex justify-center text-display-2  w-full"
+        className="top-0 flex justify-center w-full pt-8 text-center underline lg:pt-0 lg:absolute lg:-mt-8 lg:-translate-x-1/2 lg:left-1/2 text-display-2 lg:no-underline"
       >
-        {title.text ? title.text : 'Best location in Pattaya'}
+        {title?.text}
       </div>
-      <div className={`container pt-20 lg:pt-40`}>
+      <div className="container xl:max-w-screen-2xl">
         {section.map(
           ({ spacer, starred, alignment, slider, buttonColor }, key) => (
             <FeatureCard

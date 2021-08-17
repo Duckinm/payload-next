@@ -87,7 +87,7 @@ const HeroCard: React.FC<Props> = ({
 
 export const Hero: React.FC<Type> = ({ card, heroImage }) => {
   return (
-    <div className="mb-20 lg:mb-40">
+    <section>
       <img
         src={heroImage.cloudStorageUrl}
         alt={heroImage.alt}
@@ -110,6 +110,6 @@ export const Hero: React.FC<Type> = ({ card, heroImage }) => {
           )
         )}
       </div>
-    </div>
+    </section>
   )
 }
