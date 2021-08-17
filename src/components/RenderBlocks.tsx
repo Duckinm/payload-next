@@ -14,11 +14,7 @@ const RenderBlocks: React.FC<Props> = ({ layout, className }) => {
         const Block: React.FC<any> = components[block.blockType]
 
         if (Block) {
-          return (
-            <section key={i}>
-              <Block {...block} />
-            </section>
-          )
+          return <Block {...block} key={i} />
         }
 
         return null
