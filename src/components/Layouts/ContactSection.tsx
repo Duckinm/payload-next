@@ -1,15 +1,18 @@
-import { useRouter } from 'next/router'
+import { GetStaticProps } from 'next'
 import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-import { fetcher } from 'src/utilities/fetcher'
-import useSWR from 'swr'
+import { Type as SettingsType } from 'src/globals/Settings'
 
 interface IFormInput {
   mail: string
   tel: number
   message: string
   source: 'Contact'
+}
+
+type Props = {
+  settings?: SettingsType
 }
 
 const ContactForm = () => {
@@ -101,24 +104,19 @@ const ContactForm = () => {
   )
 }
 
-export const ContactSection = () => {
-  const { locale } = useRouter()
-  const { data } = useSWR(`/api/globals/settings?locale=${locale}`, fetcher)
-
-  // console.log(/^(?:\s|<br *\/?>)*$/.test(data?.contactInfo?.desc))
-
+export const ContactSection = ({ settings }: Props) => {
   return (
     <section id="submission" className="container my-20 lg:my-40 lg:max-w-4xl">
       <div className="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0">
         <div className="w-full text-center md:w-1/2">
           <h3 className="font-cera tracking-[-4%] text-4xl lg:text-5xl text-primary mb-8">
-            {data?.contactInfo?.title
-              ? data.contactInfo.title
+            {settings?.contactInfo?.title
+              ? settings.contactInfo.title
               : 'Contact Request'}
           </h3>
           <p className="text-paragraph text-tertiary">
-            {data?.contactInfo?.desc
-              ? data.contactInfo.desc
+            {settings?.contactInfo?.desc
+              ? settings.contactInfo.desc
               : `Are you dreaming about a new home? Ask for a free valuation. The valuation is free of charge and has
             non-obligations. Start by filling out the following form and send it
             to us. We’ll contact you promptly.`}
@@ -128,4 +126,16 @@ export const ContactSection = () => {
       </div>
     </section>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const settings = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings?locale=${locale}`
+  ).then((res) => res.json())
+
+  return {
+    props: {
+      settings: settings,
+    },
+  }
 }

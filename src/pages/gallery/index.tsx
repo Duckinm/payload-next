@@ -1,11 +1,14 @@
+import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 import { ChevronRight } from 'react-feather'
 import Head from 'src/components/Head'
 import Layout from 'src/components/Layouts/Layout'
-import { fetcher } from 'src/utilities/fetcher'
-import useSWR from 'swr'
+
+type Props = {
+  galleries?: any
+}
 
 const Card = (props) => {
   const { title, description, slug, cover } = props
@@ -49,10 +52,7 @@ const Card = (props) => {
   )
 }
 
-const Gallery = () => {
-  const { locale } = useRouter()
-  const { data } = useSWR('/api/galleries/?locale=' + locale, fetcher)
-
+const Gallery = ({ galleries }: Props) => {
   return (
     <>
       <Head />
@@ -62,20 +62,34 @@ const Gallery = () => {
             Types Available:
           </h1>
           <div className="flex flex-col space-y-5 lg:space-y-8">
-            {data?.docs.map(({ title, description, slug, slider }, key) => (
-              <Card
-                key={key}
-                title={title}
-                description={description}
-                slug={slug}
-                cover={slider}
-              />
-            ))}
+            {galleries?.docs.map(
+              ({ title, description, slug, slider }, key) => (
+                <Card
+                  key={key}
+                  title={title}
+                  description={description}
+                  slug={slug}
+                  cover={slider}
+                />
+              )
+            )}
           </div>
         </div>
       </main>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const galleries = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries/?locale=${locale}`
+  ).then((res) => res.json())
+
+  return {
+    props: {
+      galleries: galleries,
+    },
+  }
 }
 
 Gallery.getLayout = (page: ReactNode) => <Layout>{page}</Layout>

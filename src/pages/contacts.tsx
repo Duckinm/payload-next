@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import React, { ReactNode } from 'react'
 import { Mail, Phone } from 'react-feather'
@@ -6,12 +7,15 @@ import FeatherIcon from 'src/components/icons/FeatherIcon'
 import { LineIcon } from 'src/components/icons/LineIcon'
 import { ContactSection } from 'src/components/Layouts/ContactSection'
 import Layout from 'src/components/Layouts/Layout'
-import useSWR from 'swr'
+import { Type as ContactsType } from 'src/globals/Contacts'
+import { Type as SettingType } from 'src/globals/Settings'
 
-const Contact = () => {
-  const { data: settings } = useSWR('/api/globals/settings')
-  const { data: contacts } = useSWR('/api/globals/contacts')
+type Props = {
+  settings?: SettingType
+  contacts?: ContactsType
+}
 
+const Contact = ({ settings, contacts }: Props) => {
   return (
     <>
       <Head />
@@ -65,7 +69,7 @@ const Contact = () => {
                     ) : (
                       ''
                     )}
-                    {contacts?.emalList ? (
+                    {contacts?.emailList ? (
                       <div className="flex">
                         <Mail />
                         <div className="flex">
@@ -138,6 +142,23 @@ const Contact = () => {
       </main>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const settings = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings`
+  ).then((res) => res.json())
+
+  const contacts = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/contacts`
+  ).then((res) => res.json())
+
+  return {
+    props: {
+      settings: settings,
+      contacts: contacts,
+    },
+  }
 }
 
 Contact.getLayout = (page: ReactNode) => <Layout>{page}</Layout>

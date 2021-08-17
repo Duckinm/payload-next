@@ -39,7 +39,6 @@
     "react-share": "^4.4.0",
     "sass": "^1.37.5",
     "sitemap": "^7.0.0",
-    "swr": "^0.5.6",
     "tsconfig-paths": "^3.10.1"
   },
   "devDependencies": {

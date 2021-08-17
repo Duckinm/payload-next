@@ -1,4 +1,5 @@
 import { Transition } from '@headlessui/react'
+import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -7,16 +8,15 @@ import CMSLink from 'src/components/CmsLink'
 import { Logo } from 'src/components/icons/Logo'
 import LocaleSwitcher from 'src/components/LocaleSwitcher'
 import { Type as HeaderType } from 'src/globals/Menu'
+import { Type as SettingsType } from 'src/globals/Settings'
 import { useScroll } from 'src/hooks/useScroll'
-import { fetcher } from 'src/utilities/fetcher'
-import useSWR from 'swr'
 
 type Props = {
   header: HeaderType
+  settings?: SettingsType
 }
 
-const Nav = ({ header }) => {
-  const { data: settings } = useSWR('/api/globals/settings', fetcher)
+const Nav = ({ header, settings }: Props) => {
   const [scrollDir] = useScroll()
   const [isOpen, setIsOpen] = useState(false)
   const { asPath, locale } = useRouter()
@@ -153,6 +153,18 @@ const Nav = ({ header }) => {
       </Transition>
     </nav>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const settings = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings`
+  ).then((res) => res.json())
+
+  return {
+    props: {
+      settings: settings.docs[0],
+    },
+  }
 }
 
 export default Nav

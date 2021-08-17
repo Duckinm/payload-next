@@ -37,7 +37,7 @@ export const Sponsor: React.FC<Type> = ({
               : 'items-end'
           }`}
         >
-          {imageGallery.map(({ image }, key) => (
+          {imageGallery?.map(({ image }, key) => (
             <div key={key}>
               <img
                 src={`${

@@ -18,7 +18,7 @@ const CMSLink: React.FC<Props> = ({ type, page, url, children, className }) => {
   }
 
   return (
-    <Link href={url ? url : '#'}>
+    <Link href={`${url ? url : '#'}`}>
       <a className={className} rel="noopener noreferrer" target="_blank">
         {children}
       </a>

@@ -1,39 +1,31 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import Head from 'src/components/Head'
 import { ContactSection } from 'src/components/Layouts/ContactSection'
 import Layout from 'src/components/Layouts/Layout'
 import NotFound from 'src/components/NotFound'
 import RenderBlocks from 'src/components/RenderBlocks'
-import { fetcher } from 'src/utilities/fetcher'
-import useSWR from 'swr'
 
 type Props = {
   pages?: any
 }
 
-const Page = (props: Props) => {
-  const { locale } = useRouter()
-  const { data } = useSWR('/api/galleries?locale=' + locale, fetcher, {
-    initialData: props.pages,
-  })
-
-  if (!data || data == null) <NotFound />
+const Page = ({ pages }: Props) => {
+  if (!pages || pages == null) <NotFound />
 
   return (
     <>
       <Head
-        title={data?.title || data?.meta?.title}
-        description={data?.desc || data?.meta?.description}
+        title={pages?.title || pages?.meta?.title}
+        description={pages?.desc || pages?.meta?.description}
         ogImage={
-          data?.layout?.heroImage
-            ? data.layout[0].heroImage?.cloudStorageUrl
+          pages?.layout?.heroImage
+            ? pages.layout[0].heroImage?.cloudStorageUrl
             : ''
         }
       />
       <main>
-        <RenderBlocks layout={data?.layout} className="flex flex-col" />
+        <RenderBlocks layout={pages?.layout} className="flex flex-col" />
         <ContactSection />
       </main>
     </>
@@ -44,9 +36,9 @@ Page.getLayout = (page: ReactNode) => <Layout>{page}</Layout>
 export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const pages = await fetcher(
+  const pages = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=${locale}`
-  )
+  ).then((res) => res.json())
 
   return {
     props: {
@@ -56,9 +48,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const page = await fetcher(
+  const page = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all`
-  )
+  ).then((res) => res.json())
+
   let paths = [] as any
 
   page.docs.forEach(({ slug }) => {

@@ -1,9 +1,9 @@
+import { GetStaticProps } from 'next'
 import getConfig from 'next/config'
 import NextHead from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { fetcher } from 'src/utilities/fetcher'
-import useSWR from 'swr'
+import { Type as SettingsType } from 'src/globals/Settings'
 
 const {
   publicRuntimeConfig: { SERVER_URL },
@@ -22,10 +22,16 @@ type Props = {
   description?: string
   ogImage?: string
   keywords?: string
+  settings?: SettingsType
 }
 
-const Head: React.FC<Props> = ({ title, description, ogImage, keywords }) => {
-  const { data: settings } = useSWR('/api/globals/settings', fetcher)
+const Head: React.FC<Props> = ({
+  title,
+  description,
+  ogImage,
+  keywords,
+  settings,
+}) => {
   const { asPath } = useRouter()
 
   const getTitle = () => {
@@ -61,6 +67,18 @@ const Head: React.FC<Props> = ({ title, description, ogImage, keywords }) => {
       <meta property="og:image" content={ogImage || defaultOGImage} />
     </NextHead>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const settings = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings`
+  ).then((res) => res.json())
+
+  return {
+    props: {
+      settings: settings,
+    },
+  }
 }
 
 export default Head
