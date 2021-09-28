@@ -13,8 +13,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production node dist/index.js",
     "dev": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dev.js",
+    "start": "NODE_ENV=production node dist/index.js",
     "build:server": "tsc --project tsconfig.server.json",
     "build:next": "next build",
     "build:payload": "payload build",

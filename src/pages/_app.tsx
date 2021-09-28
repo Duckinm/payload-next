@@ -1,13 +1,19 @@
-import type { NextComponentType } from 'next'
-import App, { AppContext, AppInitialProps, AppLayoutProps } from 'next/app'
-import { ReactNode } from 'react'
+import { NextPage } from 'next'
+import App, { AppProps } from 'next/app'
+import { ReactElement, ReactNode } from 'react'
 import '../../styles/app.scss'
 
-const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
-  Component,
-  pageProps,
-}: AppLayoutProps) => {
-  const getLayout = Component.getLayout || ((page: ReactNode) => page)
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? ((page) => page)
+
   return getLayout(<Component {...pageProps} />)
 }
 

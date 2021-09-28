@@ -1,5 +1,6 @@
 import 'keen-slider/keen-slider.min.css'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import { CardInfo } from 'src/components/Blocks/CardInfo'
 import Breadcrumb from 'src/components/Breadcrumb'
@@ -9,13 +10,16 @@ import Layout from 'src/components/Layouts/Layout'
 import NotFound from 'src/components/NotFound'
 import { Shares } from 'src/components/Shares'
 import Slider from 'src/components/Slider'
+import { fetcher } from 'src/utilities/fetcher'
+import useSWR from 'swr'
 
-type Props = {
-  galleries?: any
-}
+const Page = () => {
+  const { locale } = useRouter()
+  const { data, error } = useSWR(`/api/galleries?locale=${locale}`, fetcher)
+  const galleries = data && data.docs[0]
 
-const Page = ({ galleries }: Props) => {
-  if (!galleries) <NotFound />
+  if (error) <NotFound />
+  if (!galleries) <div></div>
 
   return (
     <>
