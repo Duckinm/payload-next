@@ -3,18 +3,16 @@ import FeatherIcon from 'components/icons/FeatherIcon'
 import { LineIcon } from 'components/icons/LineIcon'
 import { ContactSection } from 'components/Layouts/ContactSection'
 import Layout from 'components/Layouts/Layout'
-import { Type as ContactsType } from 'globals/Contacts'
-import { Type as SettingType } from 'globals/Settings'
 import Link from 'next/link'
 import React, { ReactElement } from 'react'
 import { Mail, Phone } from 'react-feather'
+import useSWR from 'swr'
+import { fetcher } from 'utilities/fetcher'
 
-type Props = {
-  settings?: SettingType
-  contacts?: ContactsType
-}
+const Contact = () => {
+  const { data: contacts } = useSWR('/api/globals/contacts', fetcher)
+  const { data: settings } = useSWR('/api/globals/settings', fetcher)
 
-const Contact = ({ settings, contacts }: Props) => {
   return (
     <>
       <Head />
@@ -44,7 +42,7 @@ const Contact = ({ settings, contacts }: Props) => {
                     Find us?
                   </h1>
                   <div className="flex flex-col pl-10 space-y-5">
-                    {contacts?.telList ? (
+                    {contacts?.telList && (
                       <div className="flex">
                         <Phone />
                         <div className="flex">
@@ -65,10 +63,8 @@ const Contact = ({ settings, contacts }: Props) => {
                           )}
                         </div>
                       </div>
-                    ) : (
-                      ''
                     )}
-                    {contacts?.emailList ? (
+                    {contacts?.emailList && (
                       <div className="flex">
                         <Mail />
                         <div className="flex">
@@ -89,8 +85,6 @@ const Contact = ({ settings, contacts }: Props) => {
                           )}
                         </div>
                       </div>
-                    ) : (
-                      ''
                     )}
                     {contacts?.facebook && (
                       <a

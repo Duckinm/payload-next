@@ -13,7 +13,11 @@ type PathProps = {
   locale?: string
 }[]
 
-const Page = ({ pages }) => {
+type Props = {
+  pages?: any
+}
+
+const Page = ({ pages }: Props) => {
   if (!pages) <NotFound />
 
   return (
@@ -39,9 +43,7 @@ Page.getLayout = (page: ReactElement) => <Layout>{page}</Layout>
 export default Page
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const pageReq = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all&limit=100`
-  )
+  const pageReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages`)
   const pageData = await pageReq.json()
 
   let paths: PathProps = []
@@ -66,7 +68,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   }
 }
 
