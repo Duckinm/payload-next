@@ -93,10 +93,9 @@ Page.getLayout = (page: ReactElement) => <Layout>{page}</Layout>
 export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
-  const slug = params?.slug
-  let url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=${locale}&where[slug][equals]=${slug}`
-
-  const galleriesReq = await fetch(url)
+  const galleriesReq = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=${locale}&where[slug][equals]=${params?.slug}`
+  )
   const galleriesData = await galleriesReq.json()
 
   return {
@@ -108,12 +107,12 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  let paths: PathProps = []
-  let url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=all&limit=100`
-
-  const galleriesReq = await fetch(url)
+  const galleriesReq = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=all&limit=100`
+  )
   const galleriesData = await galleriesReq.json()
 
+  let paths: PathProps = []
   galleriesData.docs.forEach(({ slug }) => {
     if (locales) {
       for (const locale of locales) {
