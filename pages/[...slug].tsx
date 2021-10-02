@@ -41,16 +41,11 @@ export default Page
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const pageReq = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all&limit=100`
-  ).then((res) => res.json())
+  )
+  const pageData = await pageReq.json()
 
-  let paths: PathProps = [
-    {
-      params: {
-        slug: '',
-      },
-    },
-  ]
-  pageReq.docs.map(({ slug }) => {
+  let paths: PathProps = []
+  pageData.docs.forEach(({ slug }) => {
     if (locales) {
       for (const locale of locales) {
         paths.push({
