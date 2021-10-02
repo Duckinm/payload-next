@@ -33,15 +33,14 @@ export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const slug = params?.slug || 'home'
-
   let url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=${locale}&where[slug][equals]=${slug}`
 
-  const pagesReq = await fetch(url)
-  const pagesData = await pagesReq.json()
+  const pageReq = await fetch(url)
+  const pageData = await pageReq.json()
 
   return {
     props: {
-      pages: pagesData.docs[0],
+      pages: pageData.docs[0],
     },
     revalidate: 1,
   }
@@ -51,27 +50,29 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   let paths = [] as any
   let url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all&limit=100`
 
-  const pagesReq = await fetch(url)
-  const pagesData = await pagesReq.json()
+  const pageReq = await fetch(url)
+  const pageData = await pageReq.json()
 
-  pagesData.docs.forEach(({ slug }) => {
-    if (locales) {
+  if (locales) {
+    pageData.docs.forEach((doc) => {
       for (const locale of locales) {
         paths.push({
           params: {
-            slug: slug.split('/'),
+            slug: doc.slug.split('/') == '/home' ? '/' : doc.slug.split('/'),
           },
           locale,
         })
       }
-    } else {
+    })
+  } else {
+    pageData.docs.forEach((doc) => {
       paths.push({
         params: {
-          slug: slug.split('/'),
+          slug: doc.slug.split('/') == '/home' ? '/' : doc.slug.split('/'),
         },
       })
-    }
-  })
+    })
+  }
 
   return {
     paths,
