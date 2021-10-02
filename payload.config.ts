@@ -1,14 +1,14 @@
 import dotenv from 'dotenv'
 import cloudStorage from 'payload-plugin-cloud-storage'
 import { buildConfig } from 'payload/config'
-import FormSubmission from './src/collections/FormSubmission'
-import Galleries from './src/collections/Galleries'
-import Media from './src/collections/Media'
-import Pages from './src/collections/Pages'
-import Contacts from './src/globals/Contacts'
-import Menu from './src/globals/Menu'
-import Settings from './src/globals/Settings'
-import { s3Adapter } from './src/lib/s3'
+import FormSubmission from './collections/FormSubmission'
+import Galleries from './collections/Galleries'
+import Media from './collections/Media'
+import Pages from './collections/Pages'
+import Contacts from './globals/Contacts'
+import Menu from './globals/Menu'
+import Settings from './globals/Settings'
+import { s3Adapter } from './lib/s3'
 
 dotenv.config()
 
