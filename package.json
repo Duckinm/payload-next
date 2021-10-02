@@ -14,11 +14,6 @@
   "private": true,
   "scripts": {
     "dev": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dev.js",
-    "start": "NODE_ENV=production node dist/server/index.js",
-    "build:server": "tsc --project tsconfig.server.json",
-    "build:next": "next build",
-    "build:payload": "payload build",
-    "build": "NODE_ENV=production npm run build:payload && npm run build:server && NEXT_BUILD=true node dist/server/index.js",
     "lint": "next lint"
   },
   "dependencies": {
