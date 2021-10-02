@@ -46,11 +46,6 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   )
   const pageData = await pageReq.json()
 
-  const test = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all`
-  )
-  const testData = await test.json()
-
   return {
     props: {
       pages: pageData.docs[0] || null,
@@ -60,9 +55,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const pageReq = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all`
-  )
+  const pageReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages`)
   const pageData = await pageReq.json()
 
   let paths: PathProps = []
@@ -89,6 +82,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   }
 }
