@@ -10,6 +10,13 @@ import 'keen-slider/keen-slider.min.css'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { ReactElement } from 'react'
 
+type PathProps = {
+  params: {
+    slug: string | string[]
+  }
+  locale?: string
+}[]
+
 const Page = ({ galleries }) => {
   if (!galleries) <NotFound />
 
@@ -101,7 +108,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  let paths = [] as any
+  let paths: PathProps = []
   let url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=all&limit=100`
 
   const galleriesReq = await fetch(url)

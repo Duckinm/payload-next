@@ -6,6 +6,13 @@ import RenderBlocks from 'components/RenderBlocks'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { ReactElement } from 'react'
 
+type PathProps = {
+  params: {
+    slug?: string | string[]
+  }
+  locale?: string
+}[]
+
 const Page = ({ pages }) => {
   if (!pages) <NotFound />
 
@@ -33,49 +40,55 @@ export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const slug = params?.slug || 'home'
-  let url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=${locale}&where[slug][equals]=${slug}`
 
-  const pageReq = await fetch(url)
+  const pageReq = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=${locale}&where[slug][equals]=${slug}`
+  )
   const pageData = await pageReq.json()
 
   return {
     props: {
-      pages: pageData.docs[0],
+      pages: pageData.docs[0] || null,
     },
     revalidate: 1,
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  let paths = [] as any
-  let url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all&limit=100`
+  let paths: PathProps = [
+    {
+      params: {
+        slug: '/',
+      },
+    },
+  ]
 
-  const pageReq = await fetch(url)
+  const pageReq = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all&limit=100`
+  )
   const pageData = await pageReq.json()
 
-  if (locales) {
-    pageData.docs.forEach((doc) => {
+  pageData.docs.forEach(({ slug }) => {
+    if (locales) {
       for (const locale of locales) {
         paths.push({
           params: {
-            slug: doc.slug.split('/') == '/home' ? '/' : doc.slug.split('/'),
+            slug: slug,
           },
           locale,
         })
       }
-    })
-  } else {
-    pageData.docs.forEach((doc) => {
+    } else {
       paths.push({
         params: {
-          slug: doc.slug.split('/') == '/home' ? '/' : doc.slug.split('/'),
+          slug: slug,
         },
       })
-    })
-  }
+    }
+  })
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   }
 }
