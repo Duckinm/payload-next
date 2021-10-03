@@ -54,7 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     props: {
       pages: pageData.docs[0],
     },
-    revalidate: 1,
+    // revalidate: 1,
   }
 }
 

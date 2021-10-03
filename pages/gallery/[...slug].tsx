@@ -92,6 +92,20 @@ const Page = ({ galleries }) => {
 Page.getLayout = (page: ReactElement) => <Layout>{page}</Layout>
 export default Page
 
+export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
+  const galleriesReq = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=${locale}&where[slug][equals]=${params?.slug}`
+  )
+  const galleriesData = await galleriesReq.json()
+
+  return {
+    props: {
+      galleries: galleriesData.docs[0],
+    },
+    // revalidate: 1,
+  }
+}
+
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const galleriesReq = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=all&limit=100`
@@ -112,19 +126,5 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   return {
     paths,
     fallback: false,
-  }
-}
-
-export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
-  const galleriesReq = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=${locale}&where[slug][equals]=${params?.slug}`
-  )
-  const galleriesData = await galleriesReq.json()
-
-  return {
-    props: {
-      galleries: galleriesData.docs[0],
-    },
-    revalidate: 1,
   }
 }

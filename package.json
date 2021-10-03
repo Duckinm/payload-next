@@ -16,6 +16,9 @@
     "serve": "NODE_ENV=production node dist/index.js",
     "lint": "next lint"
   },
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "engines": {
     "node": "14.x"
   },
