@@ -102,19 +102,10 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   galleriesData.docs.forEach(({ slug }) => {
     if (locales) {
       for (const locale of locales) {
-        paths.push({
-          params: {
-            slug: slug.split('/'),
-          },
-          locale,
-        })
+        paths.push({ params: { slug: slug }, locale })
       }
     } else {
-      paths.push({
-        params: {
-          slug: slug.split('/'),
-        },
-      })
+      paths.push({ params: { slug: slug } })
     }
   })
 

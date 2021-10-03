@@ -42,38 +42,6 @@ const Page = ({ pages }: Props) => {
 Page.getLayout = (page: ReactElement) => <Layout>{page}</Layout>
 export default Page
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const pageReq = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all&limit=100`
-  )
-  const pageData = await pageReq.json()
-
-  let paths: PathProps = []
-  pageData.docs.forEach(({ slug }) => {
-    if (locales) {
-      for (const locale of locales) {
-        paths.push({
-          params: {
-            slug: slug.split('/'),
-          },
-          locale,
-        })
-      }
-    } else {
-      paths.push({
-        params: {
-          slug: slug.split('/'),
-        },
-      })
-    }
-  })
-
-  return {
-    paths,
-    fallback: true,
-  }
-}
-
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const slug = params?.slug || 'home'
 
@@ -87,5 +55,28 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       pages: pageData.docs[0],
     },
     revalidate: 1,
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  const pageReq = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all&limit=100`
+  )
+  const pageData = await pageReq.json()
+
+  let paths: PathProps = []
+  pageData.docs.forEach(({ slug }) => {
+    if (locales) {
+      for (const locale of locales) {
+        paths.push({ params: { slug: slug }, locale })
+      }
+    } else {
+      paths.push({ params: { slug: slug } })
+    }
+  })
+
+  return {
+    paths,
+    fallback: true,
   }
 }
