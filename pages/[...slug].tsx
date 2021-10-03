@@ -54,7 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     props: {
       pages: pageData.docs[0],
     },
-    // revalidate: 1,
+    revalidate: 1,
   }
 }
 
@@ -68,10 +68,10 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   pageData.docs.forEach(({ slug }) => {
     if (locales) {
       for (const locale of locales) {
-        paths.push({ params: { slug: slug }, locale })
+        paths.push({ params: { slug: [slug] }, locale })
       }
     } else {
-      paths.push({ params: { slug: slug } })
+      paths.push({ params: { slug: [slug] } })
     }
   })
 
