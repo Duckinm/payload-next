@@ -1,25 +1,14 @@
-import { Field, SanitizedCollectionConfig } from 'payload/types'
-import React from 'react'
-import './styles.scss'
+import React from "react"
+import "./styles.scss"
 
 type Props = {
-  field: Field
-  colIndex: number
-  collection: SanitizedCollectionConfig
-  cellData: unknown
-  rowData: {
-    [path: string]: unknown
-  }
+  cellData?: string
 }
 
-const Cell: React.FC<Props> = (props) => {
-  const { cellData } = props
-
+const Cell: React.FC<Props> = ({ cellData }) => {
   if (!cellData) return null
 
-  return (
-    <div className="chip" style={{ backgroundColor: cellData as string }} />
-  )
+  return <div className="chip" style={{ backgroundColor: cellData }} />
 }
 
 export default Cell

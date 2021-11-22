@@ -5,7 +5,9 @@ import { FC, useEffect, useRef, useState } from "react"
 import { ChevronLeft, ChevronRight } from "react-feather"
 
 export type Props = {
-  data?: MediaType[]
+  data?: {
+    image: MediaType
+  }[]
   className?: string
   blockType?: string
 }
@@ -53,8 +55,8 @@ const Slider: FC<Props> = ({ data, className }) => {
   return (
     <div className={`relative navigation-wrapper`}>
       <div ref={sliderRef} className={` bg-grey-100 keen-slider ${className}`} style={{ boxShadow: "0px 0px 0px 13px rgba(255,255,255,1)" }}>
-        {data?.map((image, key) => (
-          <img key={key} src={image.cloudStorageUrl || "/media/" + image.filename} alt={image.alt} placeholder="blur" className="object-cover keen-slider__slide" />
+        {data?.map((file, key) => (
+          <img key={key} src={file.image.cloudStorageUrl || "/media/" + file.image.filename} alt={file.image.alt} placeholder="blur" className="object-cover keen-slider__slide" />
         ))}
       </div>
       {slider && (

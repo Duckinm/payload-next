@@ -1,30 +1,31 @@
-import { Button } from 'payload/components'
-import { Label, useFieldType } from 'payload/components/forms'
-import { usePreferences } from 'payload/components/preferences'
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
-import { colors } from './colors'
-import { validateHexColor } from './config'
-import './styles.scss'
+import { Button } from "payload/components"
+import { Label, useFieldType } from "payload/components/forms"
+import { usePreferences } from "payload/components/preferences"
+import { Validate } from "payload/dist/fields/config/types"
+import React, { Fragment, useCallback, useEffect, useState } from "react"
+import { colors } from "./colors"
+import { validateHexColor } from "./config"
+import "./styles.scss"
 
-const baseClass = 'custom-color-picker'
-const preferenceKey = 'color-picker-colors'
+const baseClass = "custom-color-picker"
+const preferenceKey = "color-picker-colors"
 
-type Props = Omit<any, 'type'> & {
+type Props = {
   path: string
+  label: string
+  required?: boolean
 }
 
-const InputField: React.FC<Props> = (props) => {
-  const { path, label, required } = props
-
-  const { value = '', setValue } = useFieldType({
+const InputField = ({ path, label, required }: Props) => {
+  const { value = "", setValue } = useFieldType({
     path,
-    validate: validateHexColor,
+    validate: validateHexColor as Validate | undefined,
   })
 
   const { getPreference, setPreference } = usePreferences()
   const [colorOptions, setColorOptions] = useState(colors)
   const [isAdding, setIsAdding] = useState(false)
-  const [colorToAdd, setColorToAdd] = useState('')
+  const [colorToAdd, setColorToAdd] = useState("")
 
   useEffect(() => {
     const mergeColorsFromPreferences = async () => {
@@ -57,13 +58,7 @@ const InputField: React.FC<Props> = (props) => {
       <Label htmlFor={path} label={label} required={required} />
       {isAdding && (
         <div>
-          <input
-            className={`${baseClass}__input`}
-            type="text"
-            placeholder="#000000"
-            onChange={(e) => setColorToAdd(e.target.value)}
-            value={colorToAdd}
-          />
+          <input className={`${baseClass}__input`} type="text" placeholder="#000000" onChange={(e) => setColorToAdd(e.target.value)} value={colorToAdd} />
           <Button
             className={`${baseClass}__btn`}
             buttonStyle="primary"
@@ -75,14 +70,7 @@ const InputField: React.FC<Props> = (props) => {
           >
             Add
           </Button>
-          <Button
-            className={`${baseClass}__btn`}
-            buttonStyle="secondary"
-            iconPosition="left"
-            iconStyle="with-border"
-            size="small"
-            onClick={() => setIsAdding(false)}
-          >
+          <Button className={`${baseClass}__btn`} buttonStyle="secondary" iconPosition="left" iconStyle="with-border" size="small" onClick={() => setIsAdding(false)}>
             Cancel
           </Button>
         </div>
@@ -95,9 +83,7 @@ const InputField: React.FC<Props> = (props) => {
                 <button
                   type="button"
                   key={color}
-                  className={`chip ${
-                    color === value ? 'chip--selected' : ''
-                  } chip--clickable`}
+                  className={`chip ${color === value ? "chip--selected" : ""} chip--clickable`}
                   style={{ backgroundColor: color }}
                   aria-label={color}
                   onClick={() => setValue(color)}
@@ -112,7 +98,7 @@ const InputField: React.FC<Props> = (props) => {
               iconStyle="with-border"
               onClick={() => {
                 setIsAdding(true)
-                setValue('')
+                setValue("")
               }}
             />
           </ul>

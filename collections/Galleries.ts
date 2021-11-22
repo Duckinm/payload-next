@@ -16,7 +16,9 @@ type Highlight = {
 export type Type = {
   title: string
   description?: string
-  slider: MediaType[]
+  slider: {
+    image: MediaType
+  }[]
   sharesAlignment: "left" | "right"
   highlight: Highlight
   meta: MetaType
