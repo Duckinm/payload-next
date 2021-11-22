@@ -2,6 +2,7 @@ import Analytics from "components/Analytics"
 import Footer from "components/Footer"
 import Loader from "components/Loader"
 import Navbar from "components/Navbar"
+import NotFound from "components/NotFound"
 import { toastOptions } from "constants/toastConfig"
 import { useContacts } from "hooks/swr/useContacts"
 import { useMenu } from "hooks/swr/useMenu"
@@ -18,11 +19,12 @@ type Props = {
 const Layout = ({ children }: Props) => {
   const { locale } = useRouter()
 
-  const { data: menu } = useMenu(locale)
-  const { data: contacts } = useContacts(locale)
-  const { data: settings } = useSettings(locale)
+  const { data: menu, error: menuError } = useMenu(locale)
+  const { data: contacts, error: contactsError } = useContacts(locale)
+  const { data: settings, error: settingsError } = useSettings(locale)
 
   if (!menu || !contacts || !settings) return <Loader />
+  if (!menuError || !contactsError || !settingsError) return <NotFound />
 
   return (
     <>

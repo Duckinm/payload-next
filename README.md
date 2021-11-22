@@ -1,6 +1,6 @@
 # Getting Started
 
-> Real-world web application project builted on top of NextJS framework and PayloadCMS as a headless CMS
+> Real-world web application project built on top of NextJS framework and PayloadCMS as a headless CMS
 
 ## Abstracts
 
@@ -28,7 +28,7 @@ And the list of services this project uses:
 - Cloudfare - For service workers and basic Security Pattern
 - PayloadCMS - For CMS platform
 
-Moreover, as I mentioned, this is a real-world project builted by integrating NextJS and a custom server (ExpressJS). Because we want Payload to be completely integrated without splitting the whole stuff to another server and handled by Docker/Etc (Too complicated for a frontend developer and unnecessary at the moment), we choose an optimal solution to this project to run our own server to integrate into an existing application. Although this is the easier way, but also takes a little frustation to the frontend developer who has no experience in working with Babel and basic NodeJS.
+Moreover, as I mentioned, this is a real-world project built by integrating NextJS and a custom server (ExpressJS). Because we want Payload to be completely integrated without splitting the whole stuff to another server and handled by Docker/Etc (Too complicated for a frontend developer and unnecessary at the moment), we choose an optimal solution to this project to run our own server to integrate into an existing application. Although this is the easier way, but also takes a little frustation to the frontend developer who has no experience in working with Babel and basic NodeJS.
 
 &nbsp;
 

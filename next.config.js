@@ -1,13 +1,19 @@
-const path = require('path')
+const path = require("path")
 
-require('dotenv').config()
+require("dotenv").config()
 
 module.exports = {
-  publicRuntimeConfig: {
-    SERVER_URL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  },
+  // publicRuntimeConfig: {
+  //   SERVER_URL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
+  // },
   i18n: {
-    locales: ['en', 'th'],
-    defaultLocale: 'en',
+    locales: ["en", "th"],
+    defaultLocale: "en",
   },
+  reactStrictMode: true,
+  swcMinify: true,
+  // experimental: {
+  //   concurrentFeatures: true,
+  //   serverComponents: true,
+  // },
 }
