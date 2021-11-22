@@ -1,8 +1,8 @@
-import Script from 'next/script'
+import Script from "next/script"
 
-interface Props {
-  googleAnalytics?: any
-  googleTagManager?: any
+type Props = {
+  googleAnalytics?: string
+  googleTagManager?: string
 }
 
 const Analytics = ({ googleAnalytics, googleTagManager }: Props) => {
@@ -21,12 +21,7 @@ const Analytics = ({ googleAnalytics, googleTagManager }: Props) => {
       )}
       {googleAnalytics && (
         <>
-          <Script
-            async
-            id="ga1"
-            strategy="lazyOnload"
-            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalytics}`}
-          />
+          <Script async id="ga1" strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalytics}`} />
 
           <Script strategy="lazyOnload" id="ga2">
             {`

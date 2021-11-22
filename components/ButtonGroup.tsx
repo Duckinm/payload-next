@@ -1,14 +1,15 @@
+import type { Type as MediaType } from "collections/Media"
 import { useState } from "react"
 
 type Props = {
-  layout: any
+  layout: MediaType
   map?: string
   streetView?: string
 }
 
 const ButtonItems = ["Layout", "Map", "StreetView"]
 
-export const ButtonGroup: React.FC<Props> = ({ layout, map, streetView }) => {
+export const ButtonGroup = ({ layout, map, streetView }: Props) => {
   const [selected, setSelected] = useState("Layout")
 
   return (

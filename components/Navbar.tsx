@@ -3,11 +3,11 @@ import CMSLink from "components/CmsLink"
 import LocaleSwitcher from "components/LocaleSwitcher"
 import { Type as HeaderType } from "globals/Menu"
 import { useScroll } from "hooks/useScroll"
-import { useSettings } from "hooks/useSettings"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { useState } from "react"
 import { BarChart2, X } from "react-feather"
+import { useSettings } from "swr/useSettings"
 
 type Props = {
   header: HeaderType
@@ -16,13 +16,14 @@ type Props = {
 
 const Nav = ({ header, defaultTitle }: Props) => {
   const { data: settings } = useSettings()
-
   const [scrollDir] = useScroll()
+
   const [isOpen, setIsOpen] = useState(false)
   const { asPath, locale } = useRouter()
 
   const noHome = asPath !== "/" && asPath !== "/home"
-  const navbar = (path) => {
+
+  const navbar = (path: string) => {
     if (path === "/" || path === "/home") {
       if (scrollDir === "up") return "fixed shadow-lg bg-white/60 backdrop-blur-lg"
       if (scrollDir === "down") return "hidden"
@@ -32,7 +33,7 @@ const Nav = ({ header, defaultTitle }: Props) => {
   }
 
   return (
-    <nav className={`top-0 z-50 h-[80px] w-full transition duration-700 ease-in-out ${navbar(asPath)}`}>
+    <nav className={"top-0 z-50 h-[80px] w-full transition duration-700 ease-in-out" + navbar(asPath)}>
       <div className="container flex items-center h-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center w-full">
           <div className="flex-shrink-0 mr-auto">

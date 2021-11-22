@@ -1,15 +1,15 @@
-import { components } from 'blocks'
-import { Layout } from 'collections/Pages'
-import React from 'react'
+import { components } from "blocks"
+import { Layout } from "collections/Pages"
+import React from "react"
 
 type Props = {
-  layout: Layout[]
+  layout?: Layout[]
   className?: string
 }
 
-const RenderBlocks: React.FC<Props> = ({ layout, className }) => {
+const RenderBlocks = ({ layout, className }: Props) => {
   return (
-    <div className={[className].filter(Boolean).join(' ')}>
+    <div className={[className].filter(Boolean).join(" ")}>
       {layout?.map((block, i) => {
         const Block: React.FC<any> = components[block.blockType]
 

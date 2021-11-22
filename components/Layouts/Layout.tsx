@@ -1,12 +1,14 @@
 import Analytics from "components/Analytics"
 import Footer from "components/Footer"
+import Loader from "components/Loader"
 import Navbar from "components/Navbar"
-import GlobalCustomAlert from "components/Toast"
+import { toastOptions } from "constants/toastConfig"
 import { useRouter } from "next/router"
-import React, { ReactNode } from "react"
-import useSWR from "swr"
-import { fetcher } from "utilities/fetcher"
-import Loader from "../Loader"
+import { ReactNode } from "react"
+import { Toaster } from "react-hot-toast"
+import { useContacts } from "swr/useContacts"
+import { useMenu } from "swr/useMenu"
+import { useSettings } from "swr/useSettings"
 
 type Props = {
   title?: string
@@ -16,19 +18,19 @@ type Props = {
 const Layout = ({ children }: Props) => {
   const { locale } = useRouter()
 
-  const { data: menu } = useSWR("/api/globals/menu?locale=" + locale, fetcher)
-  const { data: contacts } = useSWR("/api/globals/contacts", fetcher)
-  const { data: settings } = useSWR("/api/globals/settings", fetcher)
+  const { data: menu } = useMenu(locale)
+  const { data: contacts } = useContacts(locale)
+  const { data: settings } = useSettings(locale)
 
   if (!menu || !contacts) return <Loader />
 
   return (
     <>
       <Analytics googleTagManager={settings?.tag?.googleTagManager} googleAnalytics={settings?.tag?.googleAnalytics} />
-      <GlobalCustomAlert />
+      <Toaster position="top-center" reverseOrder={false} gutter={8} containerClassName="" containerStyle={{}} toastOptions={toastOptions} />
       <Navbar header={menu} defaultTitle="Merchance" />
       {children}
-      <Footer footer={menu} contacts={contacts} />
+      <Footer menu={menu} contacts={contacts} />
     </>
   )
 }

@@ -1,28 +1,13 @@
+import type { Type as MediaType } from "collections/Media"
 import "keen-slider/keen-slider.min.css"
 import { useKeenSlider } from "keen-slider/react"
 import { FC, useEffect, useRef, useState } from "react"
 import { ChevronLeft, ChevronRight } from "react-feather"
 
 export type Props = {
-  data?: any
+  data?: MediaType[]
   className?: string
   blockType?: string
-}
-
-const ArrowLeftComponent = (props) => {
-  return (
-    <>
-      <ChevronLeft onClick={props.onClick} className="w-8 h-8 text-white md:w-10 md:h-10" />
-    </>
-  )
-}
-
-const ArrowRightComponent = (props) => {
-  return (
-    <>
-      <ChevronRight onClick={props.onClick} className="w-8 h-8 text-white md:w-10 md:h-10" />
-    </>
-  )
 }
 
 const Slider: FC<Props> = ({ data, className }) => {
@@ -68,17 +53,21 @@ const Slider: FC<Props> = ({ data, className }) => {
   return (
     <div className={`relative navigation-wrapper`}>
       <div ref={sliderRef} className={` bg-grey-100 keen-slider ${className}`} style={{ boxShadow: "0px 0px 0px 13px rgba(255,255,255,1)" }}>
-        {data?.map(({ image }, key) => (
+        {data?.map((image, key) => (
           <img key={key} src={image.cloudStorageUrl || "/media/" + image.filename} alt={image.alt} placeholder="blur" className="object-cover keen-slider__slide" />
         ))}
       </div>
       {slider && (
         <div className="absolute top-[calc(50%-20px)] md:top-[calc(50%-32px)] flex justify-between w-full">
           <div className="relative left-0 lg:-left-0.5 z-10 p-1 md:p-3 bg-gray-400 shadow-2xl drop-shadow-2xl cursor-pointer">
-            <ArrowLeftComponent onClick={(e) => e.stopPropagation() || slider.prev()} disabled={currentSlide === 0} />
+            <button onClick={() => slider.prev()} disabled={currentSlide === 0}>
+              <ChevronLeft className="w-8 h-8 text-white md:w-10 md:h-10" />
+            </button>
           </div>
           <div className="absolute right-0 lg:-right-0.5 z-10 p-1 md:p-3 bg-gray-400 shadow-2xl drop-shadow-2xl cursor-pointer">
-            <ArrowRightComponent onClick={(e) => e.stopPropagation() || slider.next()} disabled={currentSlide === slider.details().size - 1} />
+            <button onClick={() => slider.next()} disabled={currentSlide === slider.details().size - 1}>
+              <ChevronRight className="w-8 h-8 text-white md:w-10 md:h-10" />
+            </button>
           </div>
         </div>
       )}

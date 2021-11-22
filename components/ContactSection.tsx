@@ -1,8 +1,9 @@
 import { Type as SettingsType } from "globals/Settings"
-import { GetStaticProps } from "next"
+import { useRouter } from "next/router"
 import React, { useEffect } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
+import { useSettings } from "swr/useSettings"
 
 interface IFormInput {
   mail: string
@@ -79,7 +80,10 @@ const ContactForm = () => {
   )
 }
 
-export const ContactSection = ({ settings }: Props) => {
+export const ContactSection = () => {
+  const { locale } = useRouter()
+  const { data: settings } = useSettings(locale)
+
   return (
     <section id="submission" className="container my-20 lg:my-40 lg:max-w-4xl">
       <div className="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0">
@@ -97,14 +101,4 @@ export const ContactSection = ({ settings }: Props) => {
       </div>
     </section>
   )
-}
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const settings = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings?locale=${locale}`).then((res) => res.json())
-
-  return {
-    props: {
-      settings: settings,
-    },
-  }
 }

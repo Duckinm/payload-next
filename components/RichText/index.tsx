@@ -1,10 +1,9 @@
-import React from 'react'
-import serialize from './serialize'
+import serialize from "components/RichText/serialize"
+import React from "react"
 
-const RichText: React.FC<{ className?: string; content: any }> = ({
-  className,
-  content,
-}) => {
+type Props = { className?: string; content?: any }
+
+const RichText: React.FC<Props> = ({ className, content }) => {
   if (!content) {
     return null
   }

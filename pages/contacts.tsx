@@ -105,7 +105,6 @@ export default Contact
 
 export const getStaticProps: GetStaticProps = async () => {
   const contactsReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals?contacts`)
-
   const settingsReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals?settings`)
 
   const contactsData = await contactsReq.json()

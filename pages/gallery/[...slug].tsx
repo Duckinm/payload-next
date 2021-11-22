@@ -1,3 +1,4 @@
+import type { Type } from "collections/Galleries"
 import { CardInfo } from "components/Blocks/CardInfo"
 import Breadcrumb from "components/Breadcrumb"
 import { ButtonGroup } from "components/ButtonGroup"
@@ -9,24 +10,18 @@ import Slider from "components/Slider"
 import "keen-slider/keen-slider.min.css"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { ReactElement } from "react"
+import { dynamicSlugByLocale } from "utilities/dynamicSlugByLocale"
 
-type PathProps = {
-  params: {
-    slug: string | string[]
-  }
-  locale?: string
-}[]
+interface Props {
+  galleries: Type
+}
 
-const Page = ({ galleries }) => {
+const Page = ({ galleries }: Props) => {
   if (!galleries) <NotFound />
 
   return (
     <>
-      <Head
-        title={galleries?.title || galleries?.meta?.title}
-        description={galleries?.desc || galleries?.meta?.description}
-        ogImage={galleries?.slider ? galleries.slider[0].image.cloudStorageUrl ?? "/media/" + galleries.slider[0].image.filename : ""}
-      />
+      <Head />
       <main className="container">
         <Breadcrumb className="my-3 lg:my-5" />
         {galleries?.title && <h1 className="hidden mb-2 text-headline text-primary">{galleries.title}</h1>}
@@ -70,17 +65,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const galleriesReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/galleries?locale=all&limit=100`)
   const galleriesData = await galleriesReq.json()
-
-  let paths: PathProps = []
-  galleriesData.docs.forEach(({ slug }) => {
-    if (locales) {
-      for (const locale of locales) {
-        paths.push({ params: { slug: [slug] }, locale })
-      }
-    } else {
-      paths.push({ params: { slug: [slug] } })
-    }
-  })
+  const paths = dynamicSlugByLocale(galleriesData.docs, locales)
 
   return {
     paths,

@@ -1,13 +1,23 @@
-import escapeHTML from 'escape-html'
-import React, { Fragment } from 'react'
-import { Text } from 'slate'
+import escapeHTML from "escape-html"
+import React, { Fragment } from "react"
+import { Text } from "slate"
 
-const serialize = (children: any): React.ReactElement[] =>
+type Props = {
+  text: string | null | undefined
+  bold: any
+  code: any
+  italic: any
+  underline: any
+  strikethrough: any
+  type: any
+  children: any
+  url: string | null | undefined
+}
+
+const serialize = (children: Props[]) =>
   children.map((node, i) => {
     if (Text.isText(node)) {
-      let text = (
-        <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
-      )
+      let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
 
       if (node.bold) {
         text = <strong key={i}>{text}</strong>
@@ -23,7 +33,7 @@ const serialize = (children: any): React.ReactElement[] =>
 
       if (node.underline) {
         text = (
-          <span style={{ textDecoration: 'underline' }} key={i}>
+          <span style={{ textDecoration: "underline" }} key={i}>
             {text}
           </span>
         )
@@ -31,7 +41,7 @@ const serialize = (children: any): React.ReactElement[] =>
 
       if (node.strikethrough) {
         text = (
-          <span style={{ textDecoration: 'line-through' }} key={i}>
+          <span style={{ textDecoration: "line-through" }} key={i}>
             {text}
           </span>
         )
@@ -45,27 +55,27 @@ const serialize = (children: any): React.ReactElement[] =>
     }
 
     switch (node.type) {
-      case 'h1':
+      case "h1":
         return <h1 key={i}>{serialize(node.children)}</h1>
-      case 'h2':
+      case "h2":
         return <h2 key={i}>{serialize(node.children)}</h2>
-      case 'h3':
+      case "h3":
         return <h3 key={i}>{serialize(node.children)}</h3>
-      case 'h4':
+      case "h4":
         return <h4 key={i}>{serialize(node.children)}</h4>
-      case 'h5':
+      case "h5":
         return <h5 key={i}>{serialize(node.children)}</h5>
-      case 'h6':
+      case "h6":
         return <h6 key={i}>{serialize(node.children)}</h6>
-      case 'quote':
+      case "quote":
         return <blockquote key={i}>{serialize(node.children)}</blockquote>
-      case 'ul':
+      case "ul":
         return <ul key={i}>{serialize(node.children)}</ul>
-      case 'ol':
+      case "ol":
         return <ol key={i}>{serialize(node.children)}</ol>
-      case 'li':
+      case "li":
         return <li key={i}>{serialize(node.children)}</li>
-      case 'link':
+      case "link":
         return (
           <a href={escapeHTML(node.url)} key={i}>
             {serialize(node.children)}

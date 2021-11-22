@@ -1,9 +1,10 @@
-import { GlobalConfig } from 'payload/types'
-import { Type as MediaType } from '../collections/Media'
+import { GlobalConfig } from "payload/types"
+import { Type as MediaType } from "../collections/Media"
 
-export type Share = {
+export type Shares = {
   facebook: boolean
   messenger: boolean
+  twitter: boolean
   line: boolean
   linkedin: boolean
   mail: boolean
@@ -23,107 +24,106 @@ export type Type = {
     googleAnalytics: string
     googleTagManager: string
   }
-  share: Share
+  shares: Shares
 }
 
 const Settings: GlobalConfig = {
-  slug: 'settings',
-  label: 'Settings',
+  slug: "settings",
+  label: "Settings",
   access: {
     read: () => true,
   },
   admin: {
-    description: 'Setting, config, tag and all available tools',
+    description: "Setting, config, tag and all available tools",
   },
   fields: [
     {
-      name: 'icon',
-      type: 'group',
+      name: "icon",
+      type: "group",
       fields: [
         {
-          name: 'logo',
-          label: 'Logo Icon',
-          type: 'upload',
-          relationTo: 'media',
+          name: "logo",
+          label: "Logo Icon",
+          type: "upload",
+          relationTo: "media",
         },
         {
-          name: 'favicon',
-          label: 'Fav Icon',
-          type: 'upload',
-          relationTo: 'media',
+          name: "favicon",
+          label: "Fav Icon",
+          type: "upload",
+          relationTo: "media",
         },
       ],
     },
     {
-      name: 'googleMap',
-      label: 'Google Map',
-      type: 'textarea',
+      name: "googleMap",
+      label: "Google Map",
+      type: "textarea",
       admin: {
-        placeholder:
-          'Find your location on Google Maps, then get url from embbed map (Share button)',
-        description: 'Url only! What is Url? https://en.wikipedia.org/wiki/URL',
+        placeholder: "Find your location on Google Maps, then get url from embbed map (Share button)",
+        description: "Url only! What is Url? https://en.wikipedia.org/wiki/URL",
         rows: 4,
       },
     },
     {
-      name: 'contactInfo',
-      type: 'group',
+      name: "contactInfo",
+      type: "group",
       fields: [
-        { name: 'title', type: 'text', localized: true },
-        { name: 'desc', type: 'textarea', localized: true, admin: { rows: 5 } },
+        { name: "title", type: "text", localized: true },
+        { name: "desc", type: "textarea", localized: true, admin: { rows: 5 } },
       ],
       admin: {
         hideGutter: true,
       },
     },
     {
-      name: 'shares',
-      label: 'Shares Channel',
-      type: 'group',
+      name: "shares",
+      label: "Shares Channel",
+      type: "group",
       admin: {
-        description: 'Send your content via those channels',
+        description: "Send your content via those channels",
       },
       fields: [
         {
-          type: 'row',
+          type: "row",
           fields: [
             {
-              name: 'facebook',
-              type: 'checkbox',
-              label: 'Facebook',
+              name: "facebook",
+              type: "checkbox",
+              label: "Facebook",
               defaultValue: true,
             },
             {
-              name: 'messenger',
-              type: 'checkbox',
-              label: 'Messenger',
+              name: "messenger",
+              type: "checkbox",
+              label: "Messenger",
               defaultValue: false,
               admin: {
                 disabled: true,
               },
             },
             {
-              name: 'line',
-              type: 'checkbox',
-              label: 'Line',
+              name: "line",
+              type: "checkbox",
+              label: "Line",
               defaultValue: true,
             },
             {
-              name: 'twitter',
-              type: 'checkbox',
-              label: 'Twitter',
+              name: "twitter",
+              type: "checkbox",
+              label: "Twitter",
               defaultValue: true,
             },
             {
-              name: 'linkedin',
-              type: 'checkbox',
-              label: 'Linkedin',
+              name: "linkedin",
+              type: "checkbox",
+              label: "Linkedin",
               defaultValue: false,
             },
             {
-              name: 'mail',
-              type: 'checkbox',
-              label: 'Mail',
+              name: "mail",
+              type: "checkbox",
+              label: "Mail",
               defaultValue: true,
             },
           ],
@@ -131,37 +131,36 @@ const Settings: GlobalConfig = {
       ],
     },
     {
-      name: 'tag',
-      label: 'Tags',
-      type: 'group',
+      name: "tag",
+      label: "Tags",
+      type: "group",
       admin: {
-        description:
-          'How to install?: https://www.youtube.com/watch?v=WFuwVKeUglU',
+        description: "How to install?: https://www.youtube.com/watch?v=WFuwVKeUglU",
       },
       fields: [
         {
-          name: 'googleAnalytics',
-          label: 'Google Analytics',
-          type: 'text',
+          name: "googleAnalytics",
+          label: "Google Analytics",
+          type: "text",
           admin: {
-            placeholder: 'Paste GA-ID...',
+            placeholder: "Paste GA-ID...",
           },
         },
         {
-          name: 'googleTagManager',
-          label: 'Google Tag Manager',
-          type: 'text',
+          name: "googleTagManager",
+          label: "Google Tag Manager",
+          type: "text",
           admin: {
-            placeholder: 'Paste GTM-ID...',
+            placeholder: "Paste GTM-ID...",
           },
         },
         {
-          name: 'googleSearchConsole',
-          label: 'Google Search Console',
-          type: 'text',
+          name: "googleSearchConsole",
+          label: "Google Search Console",
+          type: "text",
           admin: {
             readOnly: true,
-            placeholder: 'This can be achieved by adding GTM or GA',
+            placeholder: "This can be achieved by adding GTM or GA",
           },
         },
       ],

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react"
 
-type scrollDir = 'up' | 'down' | null
+type scrollDir = "up" | "down" | null
 
 export function useScroll() {
   const [scrollDir, setScrollDir] = useState<scrollDir>(null)
@@ -17,7 +17,7 @@ export function useScroll() {
         ticking = false
         return
       }
-      setScrollDir(scrollY > lastScrollY ? 'down' : 'up')
+      setScrollDir(scrollY > lastScrollY ? "down" : "up")
       lastScrollY = scrollY > 0 ? scrollY : 0
       if (scrollY === 0) setScrollDir(null)
       ticking = false
@@ -30,8 +30,8 @@ export function useScroll() {
       }
     }
 
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener("scroll", onScroll)
+    return () => window.removeEventListener("scroll", onScroll)
   }, [scrollDir])
 
   return [scrollDir]

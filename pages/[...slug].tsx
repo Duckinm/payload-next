@@ -1,9 +1,9 @@
 import type { Type } from "collections/Pages"
-// import { ContactSection } from 'components/ContactSection'
-// import Head from 'components/Head'
+import { ContactSection } from "components/ContactSection"
+import Head from "components/Head"
 import Layout from "components/Layouts/Layout"
 import NotFound from "components/NotFound"
-// import RenderBlocks from 'components/RenderBlocks'
+import RenderBlocks from "components/RenderBlocks"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { ReactElement } from "react"
 import { dynamicSlugByLocale } from "utilities/dynamicSlugByLocale"
@@ -17,20 +17,11 @@ const Page = ({ pages }: Props) => {
 
   return (
     <>
-      {/* <Head
-        title={pages?.title || pages?.meta?.title}
-        description={pages?.desc || pages?.meta?.description}
-        ogImage={
-          pages?.layout?.heroImage
-            ? pages.layout[0].heroImage?.cloudStorageUrl ??
-              '/media/' + pages.layout[0].heroImage?.filename
-            : ''
-        }
-      />
+      <Head />
       <main>
         <RenderBlocks layout={pages?.layout} className="flex flex-col" />
         <ContactSection />
-      </main> */}
+      </main>
     </>
   )
 }

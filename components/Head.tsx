@@ -1,9 +1,15 @@
-import { Type as SettingsType } from "globals/Settings"
-import { GetStaticProps } from "next"
 import getConfig from "next/config"
 import NextHead from "next/head"
 import { useRouter } from "next/router"
 import React from "react"
+import { useSettings } from "swr/useSettings"
+
+type Props = {
+  title?: string
+  description?: string
+  ogImage?: string
+  keywords?: string
+}
 
 const {
   publicRuntimeConfig: { SERVER_URL },
@@ -15,16 +21,10 @@ const titleSuffix = " - Asiana Residence"
 const defaultOGImage = `${SERVER_URL}/images/hero.jpg`
 const defaultKeywords = "Asiana, Resident, Residence, Scandinavian, Lifestyle, Mabprachan"
 
-type Props = {
-  title?: string
-  description?: string
-  ogImage?: string
-  keywords?: string
-  settings?: SettingsType
-}
-
-const Head: React.FC<Props> = ({ title, description, ogImage, keywords, settings }) => {
+const Head: React.FC<Props> = ({ title, description, ogImage, keywords }) => {
   const { asPath } = useRouter()
+
+  const { data: settings } = useSettings()
 
   const getTitle = () => {
     if (title) return title + titleSuffix
@@ -48,18 +48,6 @@ const Head: React.FC<Props> = ({ title, description, ogImage, keywords, settings
       <meta property="og:image" content={ogImage || defaultOGImage} />
     </NextHead>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const settingsReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/settings`)
-
-  const settingsData = await settingsReq.json()
-
-  return {
-    props: {
-      settings: settingsData,
-    },
-  }
 }
 
 export default Head

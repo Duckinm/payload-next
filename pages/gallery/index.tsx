@@ -1,3 +1,5 @@
+import type { Type } from "collections/Galleries"
+import type { Type as MediaType } from "collections/Media"
 import Head from "components/Head"
 import Layout from "components/Layouts/Layout"
 import { GetStaticProps } from "next"
@@ -6,17 +8,30 @@ import { useRouter } from "next/router"
 import React, { ReactElement } from "react"
 import { ChevronRight } from "react-feather"
 
-const GalleryCard = ({ title, description, slug, cover }) => {
+type GalleryCardProps = {
+  title: string
+  description?: string
+  slug: string
+  slider: MediaType[]
+}
+
+interface Props {
+  galleries: {
+    docs: Type[]
+  }
+}
+
+const GalleryCard = ({ title, description, slug, slider }: GalleryCardProps) => {
   const { locale } = useRouter()
 
   return (
     <Link href={`/gallery/${slug ? slug : "#"}`} locale={locale}>
       <a className="flex flex-col md:flex-row bg-grey-100 rounded-[20px] md:h-[300px] shadow-lg hover:shadow-2xl hover:scale-[1.02] transition">
         <div className="w-full md:w-1/3">
-          {cover ? (
+          {slider ? (
             <img
-              src={cover[0].image.cloudStorageUrl ?? "/media/" + cover[0].image.filename}
-              alt={cover[0].image.alt}
+              src={slider[0].cloudStorageUrl ?? "/media/" + slider[0].filename}
+              alt={slider[0].alt}
               className="rounded-tl-[12px] rounded-bl-[12px] object-cover w-full h-full max-h-full border-tertiary-variants"
             />
           ) : (
@@ -41,7 +56,7 @@ const GalleryCard = ({ title, description, slug, cover }) => {
   )
 }
 
-const Gallery = ({ galleries }) => {
+const Gallery = ({ galleries }: Props) => {
   return (
     <>
       <Head />
@@ -49,8 +64,8 @@ const Gallery = ({ galleries }) => {
         <div className="container pt-10 mb-20 lg:mb-40">
           <h1 className="mb-8 text-5xl leading-none font-minimal text-primary">Types Available:</h1>
           <div className="flex flex-col space-y-5 lg:space-y-8">
-            {galleries?.docs.map(({ title, description, slug, slider }, key) => (
-              <GalleryCard key={key} title={title} description={description} slug={slug} cover={slider} />
+            {galleries?.docs.map((gallery, key) => (
+              <GalleryCard key={key} title={gallery.title} description={gallery.description} slug={gallery.slug} slider={gallery.slider} />
             ))}
           </div>
         </div>
