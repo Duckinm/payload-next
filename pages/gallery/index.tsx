@@ -12,7 +12,9 @@ type GalleryCardProps = {
   title: string
   description?: string
   slug: string
-  slider: MediaType[]
+  slider: {
+    image: MediaType
+  }[]
 }
 
 interface Props {
@@ -30,8 +32,8 @@ const GalleryCard = ({ title, description, slug, slider }: GalleryCardProps) => 
         <div className="w-full md:w-1/3">
           {slider ? (
             <img
-              src={slider[0].cloudStorageUrl ?? "/media/" + slider[0].filename}
-              alt={slider[0].alt}
+              src={slider[0].image.cloudStorageUrl ?? "/media/" + slider[0].image.filename}
+              alt={slider[0].image.alt}
               className="rounded-tl-[12px] rounded-bl-[12px] object-cover w-full h-full max-h-full border-tertiary-variants"
             />
           ) : (
