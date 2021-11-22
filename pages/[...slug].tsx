@@ -1,20 +1,15 @@
-import Head from 'components/Head'
-import { ContactSection } from 'components/Layouts/ContactSection'
-import Layout from 'components/Layouts/Layout'
-import NotFound from 'components/NotFound'
-import RenderBlocks from 'components/RenderBlocks'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { ReactElement } from 'react'
+import type { Type } from "collections/Pages"
+// import { ContactSection } from 'components/ContactSection'
+// import Head from 'components/Head'
+import Layout from "components/Layouts/Layout"
+import NotFound from "components/NotFound"
+// import RenderBlocks from 'components/RenderBlocks'
+import { GetStaticPaths, GetStaticProps } from "next"
+import { ReactElement } from "react"
+import { dynamicSlugByLocale } from "utilities/dynamicSlugByLocale"
 
-type PathProps = {
-  params: {
-    slug?: string | string[]
-  }
-  locale?: string
-}[]
-
-type Props = {
-  pages?: any
+interface Props {
+  pages?: Type
 }
 
 const Page = ({ pages }: Props) => {
@@ -22,19 +17,20 @@ const Page = ({ pages }: Props) => {
 
   return (
     <>
-      <Head
+      {/* <Head
         title={pages?.title || pages?.meta?.title}
         description={pages?.desc || pages?.meta?.description}
         ogImage={
           pages?.layout?.heroImage
-            ? pages.layout[0].heroImage?.cloudStorageUrl
+            ? pages.layout[0].heroImage?.cloudStorageUrl ??
+              '/media/' + pages.layout[0].heroImage?.filename
             : ''
         }
       />
       <main>
         <RenderBlocks layout={pages?.layout} className="flex flex-col" />
         <ContactSection />
-      </main>
+      </main> */}
     </>
   )
 }
@@ -43,37 +39,23 @@ Page.getLayout = (page: ReactElement) => <Layout>{page}</Layout>
 export default Page
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
-  const slug = params?.slug || 'home'
+  const slug = params?.slug || "home"
 
-  const pageReq = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=${locale}&where[slug][equals]=${slug}`
-  )
+  const pageReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=${locale}&where[slug][equals]=${slug}`)
   const pageData = await pageReq.json()
 
   return {
     props: {
-      pages: pageData.docs[0],
+      pages: pageData.docs[0] ?? null,
     },
     revalidate: 1,
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const pageReq = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all&limit=100`
-  )
+  const pageReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/pages?locale=all&limit=100`)
   const pageData = await pageReq.json()
-
-  let paths: PathProps = []
-  pageData.docs.forEach(({ slug }) => {
-    if (locales) {
-      for (const locale of locales) {
-        paths.push({ params: { slug: [slug] }, locale })
-      }
-    } else {
-      paths.push({ params: { slug: [slug] } })
-    }
-  })
+  const paths = dynamicSlugByLocale(pageData.docs, locales)
 
   return {
     paths,

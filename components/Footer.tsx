@@ -1,11 +1,11 @@
-import CMSLink from 'components/CmsLink'
-import FeatherIcon from 'components/icons/FeatherIcon'
-import { LineIcon } from 'components/icons/LineIcon'
-import { Type as ContactsType } from 'globals/Contacts'
-import { Type as FooterType } from 'globals/Menu'
-import Link from 'next/link'
-import React, { useCallback } from 'react'
-import { ChevronUp } from 'react-feather'
+import CMSLink from "components/CmsLink"
+import FeatherIcon from "components/icons/FeatherIcon"
+import { LineIcon } from "components/icons/LineIcon"
+import { Type as ContactsType } from "globals/Contacts"
+import { Type as FooterType } from "globals/Menu"
+import Link from "next/link"
+import React, { useCallback } from "react"
+import { ChevronUp } from "react-feather"
 
 type Props = {
   footer: FooterType
@@ -27,11 +27,7 @@ const Footer: React.FC<Props> = ({ footer, contacts }) => {
               <div key={key} className="flex flex-col p-5 space-y-2">
                 <h3 className="text-white text-headline-3">{title}</h3>
                 {nav?.map(({ link }, key) => (
-                  <CMSLink
-                    {...link}
-                    className="text-grey-100 text-link hover:text-white"
-                    key={key}
-                  >
+                  <CMSLink {...link} className="text-grey-100 text-link hover:text-white" key={key}>
                     {link.label}
                   </CMSLink>
                 ))}
@@ -42,16 +38,12 @@ const Footer: React.FC<Props> = ({ footer, contacts }) => {
               <p className="text-grey-100 text-link">{footer?.desc}</p>
               {contacts?.emailList?.map(({ email }, key) => (
                 <Link href={`mailto://${email}`} key={key}>
-                  <a className="text-grey-100 text-link hover:text-white">
-                    {email}
-                  </a>
+                  <a className="text-grey-100 text-link hover:text-white">{email}</a>
                 </Link>
               ))}
               {contacts?.telList?.map(({ tel }, key) => (
                 <Link href={`tel://${tel}`} key={key}>
-                  <a className="text-grey-100 text-link hover:text-white">
-                    {tel}
-                  </a>
+                  <a className="text-grey-100 text-link hover:text-white">{tel}</a>
                 </Link>
               ))}
             </div>
@@ -69,40 +61,21 @@ const Footer: React.FC<Props> = ({ footer, contacts }) => {
             </strong>
             <div className="flex items-center space-x-4 text-white">
               {contacts?.facebook && (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-all hover:scale-125"
-                  href={contacts.facebook}
-                >
+                <a target="_blank" rel="noopener noreferrer" className="transition-all hover:scale-125" href={contacts.facebook}>
                   <FeatherIcon key="Facebook" name="Facebook" />
                 </a>
               )}
               {contacts?.instagram && (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-all hover:scale-125"
-                  href={contacts.instagram}
-                >
+                <a target="_blank" rel="noopener noreferrer" className="transition-all hover:scale-125" href={contacts.instagram}>
                   <FeatherIcon key="Instagram" name="Instagram" />
                 </a>
               )}
               {contacts?.line && (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-all hover:scale-125"
-                  href={contacts.line}
-                >
+                <a target="_blank" rel="noopener noreferrer" className="transition-all hover:scale-125" href={contacts.line}>
                   <LineIcon fill="#fff" hoverFill="#fff" />
                 </a>
               )}
-              <button
-                type="button"
-                onClick={backToTop}
-                className="hidden p-2 lg:block bg-primary-variants"
-              >
+              <button type="button" onClick={backToTop} className="hidden p-2 lg:block bg-primary-variants">
                 <ChevronUp className="w-5 h-5" />
               </button>
             </div>

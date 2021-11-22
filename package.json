@@ -14,7 +14,8 @@
     "build": "NODE_ENV=production npm run build:payload && npm run build:server && NEXT_BUILD=true node dist/index.js",
     "seed": "node seed/index.js",
     "serve": "NODE_ENV=production node dist/index.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "cacheDirectories": [
     ".next/cache"
@@ -51,9 +52,24 @@
     "autoprefixer": "^10.3.1",
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
     "postcss": "^8.3.6",
+    "prettier": "^2.4.1",
+    "pretty-quick": "^3.1.2",
     "tailwindcss": "^2.2.7",
     "ts-node": "^10.2.0",
     "typescript": "^4.3.5"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 200,
+    "arrowParens": "always",
+    "trailingComma": "es5"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
   }
 }

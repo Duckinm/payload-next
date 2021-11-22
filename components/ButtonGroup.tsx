@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react"
 
 type Props = {
   layout: any
@@ -6,10 +6,10 @@ type Props = {
   streetView?: string
 }
 
-const ButtonItems = ['Layout', 'Map', 'StreetView']
+const ButtonItems = ["Layout", "Map", "StreetView"]
 
 export const ButtonGroup: React.FC<Props> = ({ layout, map, streetView }) => {
-  const [selected, setSelected] = useState('Layout')
+  const [selected, setSelected] = useState("Layout")
 
   return (
     <div className="flex flex-col">
@@ -19,13 +19,7 @@ export const ButtonGroup: React.FC<Props> = ({ layout, map, streetView }) => {
             <li
               key={item}
               className={`button-group
-              ${
-                index === 0
-                  ? 'first'
-                  : index === ButtonItems.length - 1
-                  ? 'end'
-                  : ''
-              } ${item === selected ? 'active' : ''}
+              ${index === 0 ? "first" : index === ButtonItems.length - 1 ? "end" : ""} ${item === selected ? "active" : ""}
               `}
               onClick={() => setSelected(item)}
             >
@@ -37,27 +31,13 @@ export const ButtonGroup: React.FC<Props> = ({ layout, map, streetView }) => {
 
       <div className="card-group">
         <img
-          src={layout?.cloudStorageUrl}
+          src={layout?.cloudStorageUrl || "/media/" + layout?.filename}
           alt={layout?.alt}
-          className={`card object-cover object-top ${
-            selected === 'Layout' ? 'block' : 'hidden'
-          }`}
+          className={`card object-cover object-top ${selected === "Layout" ? "block" : "hidden"}`}
           placeholder="blur"
         />
-        <iframe
-          src={map}
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          className={`card ${selected === 'Map' ? 'block' : 'hidden'}`}
-        />
-        <iframe
-          src={streetView}
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          className={`card ${selected === 'StreetView' ? 'block' : 'hidden'}`}
-        />
+        <iframe src={map} style={{ border: 0 }} allowFullScreen loading="lazy" className={`card ${selected === "Map" ? "block" : "hidden"}`} />
+        <iframe src={streetView} style={{ border: 0 }} allowFullScreen loading="lazy" className={`card ${selected === "StreetView" ? "block" : "hidden"}`} />
       </div>
     </div>
   )
