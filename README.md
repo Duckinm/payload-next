@@ -4,8 +4,6 @@
 
 ## Abstracts
 
----
-
 The purpose of this site is to update a catalog of houses with details, and to be able to put a little dynamic tweak to the storefront. This web application mostly works on NextJS ecosystem and the backend is fully secure by PayloadCMS. NextJS is a React framework that is loved by the community, and flawlessly works out of the box with ease. Payload is a headless CMS and application framework. It's meant to provide a massive boost to your development process, but importantly, stay out of the way as the apps get more complex. By that, I have used the few of dependencies which almost the most popular by itself. Here are some technology overview;
 
 - React - For the UI
@@ -33,8 +31,6 @@ Moreover, as I mentioned, this is a real-world project built by integrating Next
 &nbsp;
 
 ## Installation guide
-
----
 
 ### Requirements
 
