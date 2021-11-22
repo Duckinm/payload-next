@@ -4,6 +4,7 @@ import { LineIcon } from "components/icons/LineIcon"
 import type { Type as LinkType } from "fields/link"
 import type { Type as ContactsType } from "globals/Contacts"
 import type { Type as FooterType } from "globals/Menu"
+import type { Type as SettingsType } from "globals/Settings"
 import Link from "next/link"
 import { useCallback } from "react"
 import { ChevronUp } from "react-feather"
@@ -11,6 +12,7 @@ import { ChevronUp } from "react-feather"
 type Props = {
   menu: FooterType
   contacts: ContactsType
+  settings: SettingsType
 }
 
 type MenuProps = {
@@ -85,7 +87,7 @@ export const SocialContacts = ({ facebook, instagram, line, twitter, youtube }: 
   )
 }
 
-const Footer: React.FC<Props> = ({ menu, contacts }) => {
+const Footer: React.FC<Props> = ({ menu, contacts, settings }) => {
   const backToTop = useCallback(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -99,8 +101,8 @@ const Footer: React.FC<Props> = ({ menu, contacts }) => {
               <Menu key={key} title={menu.title} links={menu.nav} />
             ))}
             <div className="flex flex-col p-5 space-y-2">
-              <h3 className="text-white text-headline-3">{menu?.title}</h3>
-              <p className="text-grey-100 text-link">{menu?.desc}</p>
+              {settings?.disclaimers.title && <h3 className="text-white text-headline-3">{settings.disclaimers.title}</h3>}
+              {settings?.disclaimers.desc && <p className="text-grey-100 text-link">{settings.disclaimers.desc}</p>}
               {contacts?.emailList?.map((contact, key) => (
                 <EmailList email={contact.email} key={key} />
               ))}
@@ -114,9 +116,9 @@ const Footer: React.FC<Props> = ({ menu, contacts }) => {
           <div className="flex flex-col items-start pt-5 text-gray-800 border-t lg:items-center border-grey-100 md:flex-row md:justify-between">
             <strong className="mb-4 font-normal md:mb-0 text-grey-100 text-link">
               © Copyright 2021 |
-              {menu?.brand && (
+              {settings?.brand && (
                 <Link href="/">
-                  <a className="ml-2">{menu.brand}</a>
+                  <a className="ml-2">{settings.brand}</a>
                 </Link>
               )}
             </strong>

@@ -1,4 +1,4 @@
-import { GlobalConfig } from 'payload/types'
+import { GlobalConfig } from "payload/types"
 
 export type Type = {
   telList: {
@@ -15,83 +15,84 @@ export type Type = {
 }
 
 const Contacts: GlobalConfig = {
-  slug: 'contacts',
-  label: 'Social Media',
+  slug: "contacts",
+  label: "Social Media",
   access: {
     read: () => true,
+    update: () => true,
   },
   admin: {
-    description: 'Connects all your social media',
+    description: "Connects all your social media",
   },
   fields: [
     {
-      name: 'telList',
-      label: 'Telephone',
-      type: 'array',
+      name: "telList",
+      label: "Telephone",
+      type: "array",
       maxRows: 3,
       fields: [
         {
-          name: 'tel',
-          type: 'text',
+          name: "tel",
+          type: "text",
           admin: {
-            placeholder: 'Tel No.',
+            placeholder: "Tel No.",
           },
         },
       ],
     },
     {
-      name: 'emailList',
-      label: 'Email',
-      type: 'array',
+      name: "emailList",
+      label: "Email",
+      type: "array",
       maxRows: 2,
       fields: [
         {
-          name: 'email',
-          type: 'text',
+          name: "email",
+          type: "text",
           admin: {
-            placeholder: 'Email',
+            placeholder: "Email",
           },
         },
       ],
     },
     {
-      name: 'facebook',
-      label: 'Facebook',
-      type: 'text',
+      name: "facebook",
+      label: "Facebook",
+      type: "text",
       admin: {
-        placeholder: 'Facebook Url',
+        placeholder: "Facebook Url",
       },
     },
     {
-      name: 'instagram',
-      label: 'Instagram',
-      type: 'text',
+      name: "instagram",
+      label: "Instagram",
+      type: "text",
       admin: {
-        placeholder: 'Instagram Url',
+        placeholder: "Instagram Url",
       },
     },
     {
-      name: 'line',
-      label: 'LINE',
-      type: 'text',
+      name: "line",
+      label: "LINE",
+      type: "text",
       admin: {
-        placeholder: 'LINE Url',
+        placeholder: "LINE Url",
       },
     },
     {
-      name: 'twitter',
-      label: 'Twitter',
-      type: 'text',
+      name: "twitter",
+      label: "Twitter",
+      type: "text",
       admin: {
-        placeholder: 'Twitter Url',
+        placeholder: "Twitter Url",
       },
     },
     {
-      name: 'youtube',
-      label: 'Youtube',
-      type: 'text',
+      name: "youtube",
+      label: "Youtube",
+      type: "text",
       admin: {
-        placeholder: 'Youtube Url',
+        placeholder: "Youtube Url",
       },
     },
   ],

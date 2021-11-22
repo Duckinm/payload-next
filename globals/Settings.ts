@@ -11,6 +11,7 @@ export type Shares = {
 }
 
 export type Type = {
+  brand: string
   icon: {
     logo?: MediaType
     favicon?: MediaType
@@ -25,6 +26,10 @@ export type Type = {
     googleTagManager: string
   }
   shares: Shares
+  disclaimers: {
+    title: string
+    desc: string
+  }
 }
 
 const Settings: GlobalConfig = {
@@ -32,11 +37,22 @@ const Settings: GlobalConfig = {
   label: "Settings",
   access: {
     read: () => true,
+    update: () => true,
   },
   admin: {
     description: "Setting, config, tag and all available tools",
   },
   fields: [
+    {
+      name: "brand",
+      label: "Company Name",
+      type: "text",
+      admin: {
+        placeholder: "Your brand identity or just name",
+      },
+      localized: true,
+    },
+
     {
       name: "icon",
       type: "group",
@@ -161,6 +177,35 @@ const Settings: GlobalConfig = {
           admin: {
             readOnly: true,
             placeholder: "This can be achieved by adding GTM or GA",
+          },
+        },
+      ],
+    },
+    {
+      name: "disclaimers",
+      type: "group",
+      fields: [
+        {
+          name: "title",
+          label: "Title",
+          type: "text",
+          defaultValue: "Contacts",
+          required: true,
+          localized: true,
+          admin: {
+            width: "100%",
+          },
+        },
+        {
+          name: "desc",
+          label: "Description",
+          type: "textarea",
+          defaultValue: "Feel free to get in touch with us via phone or send us a message",
+          required: true,
+          localized: true,
+          admin: {
+            width: "100%",
+            rows: 4,
           },
         },
       ],

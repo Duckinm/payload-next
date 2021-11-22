@@ -18,7 +18,7 @@ export const Sponsor: React.FC<Type> = ({ grid, spacer, content, imageGallery, c
 
   return (
     <div style={{ backgroundColor: color ? color : "#fff" }} className={`${mt} ${mb}`}>
-      <div className={`${grid.size == "full" ? "w-full" : "container"}  h-auto py-20 bg-sponsor-pattern `}>
+      <div className={`${grid.size == "full" ? "w-full" : "container"}  h-auto py-20`}>
         <div className={`flex flex-col justify-center w-full h-full px-3 mx-auto md:max-w-xl ${grid.alignment == "left" ? "items-start" : "center" ? "items-center" : "items-end"}`}>
           {imageGallery?.map(({ image }, key) => (
             <img src={image ? image.cloudStorageUrl ?? "/media/" + image.filename : ""} alt={image.alt ? image.alt : "sponsors"} className="object-cover w-full h-full mb-20" key={key} />

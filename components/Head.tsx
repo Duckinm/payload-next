@@ -1,8 +1,8 @@
+import { useSettings } from "hooks/swr/useSettings"
 import getConfig from "next/config"
 import NextHead from "next/head"
 import { useRouter } from "next/router"
 import React from "react"
-import { useSettings } from "swr/useSettings"
 
 type Props = {
   title?: string
@@ -18,7 +18,7 @@ const {
 const defaultDescription = "Asiana Residence located at Pattaya. Nearby the Mabprachan lake also surrounding with best local people."
 const defaultTitle = "Improve your living "
 const titleSuffix = " - Asiana Residence"
-const defaultOGImage = `${SERVER_URL}/images/hero.jpg`
+const defaultOGImage = `${SERVER_URL}`
 const defaultKeywords = "Asiana, Resident, Residence, Scandinavian, Lifestyle, Mabprachan"
 
 const Head: React.FC<Props> = ({ title, description, ogImage, keywords }) => {
@@ -34,7 +34,7 @@ const Head: React.FC<Props> = ({ title, description, ogImage, keywords }) => {
   return (
     <NextHead>
       <title>{getTitle()}</title>
-      <link rel="icon" type="image/x-icon" href={`${settings?.icon?.favicon ? settings.icon.favicon.cloudStorageUrl ?? "/media/" + settings.icon.favicon.filename : "/images/logo/logo-only.svg"}`} />
+      {settings?.icon?.favicon && <link rel="icon" type="image/x-icon" href={settings.icon.favicon.cloudStorageUrl ?? "/media/" + settings.icon.favicon.filename} />}
       <meta name="description" content={description || defaultDescription} />
       <meta name="keywords" content={keywords || defaultKeywords} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />

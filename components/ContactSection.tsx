@@ -1,19 +1,14 @@
-import { Type as SettingsType } from "globals/Settings"
+import { useSettings } from "hooks/swr/useSettings"
 import { useRouter } from "next/router"
 import React, { useEffect } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { useSettings } from "swr/useSettings"
 
 interface IFormInput {
   mail: string
   tel: number
   message: string
   source: "Contact"
-}
-
-type Props = {
-  settings?: SettingsType
 }
 
 const ContactForm = () => {

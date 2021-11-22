@@ -2,12 +2,12 @@ import { Transition } from "@headlessui/react"
 import CMSLink from "components/CmsLink"
 import LocaleSwitcher from "components/LocaleSwitcher"
 import { Type as HeaderType } from "globals/Menu"
+import { useSettings } from "hooks/swr/useSettings"
 import { useScroll } from "hooks/useScroll"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { useState } from "react"
 import { BarChart2, X } from "react-feather"
-import { useSettings } from "swr/useSettings"
 
 type Props = {
   header: HeaderType

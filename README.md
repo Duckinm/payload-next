@@ -32,7 +32,7 @@ Moreover, as I mentioned, this is a real-world project builted by integrating Ne
 
 &nbsp;
 
-## How to Install
+## Installation guide
 
 ---
 
@@ -42,10 +42,16 @@ Moreover, as I mentioned, this is a real-world project builted by integrating Ne
 - Node JS version 10+
 - Add your own .env config by following .env.example
 
+---
+
+### You may need to initialize database by seeding using `npm run seed` or `yarn seed`
+
 ### Running by using `npm run dev` or `yarn dev`
 
 - To access storefront you must use browser at address `http://localhost:3000`
 - To access backstore require filling the 'admin' keyword to the url substring `http://localhost:3000/admin`
+
+> Beware of the bug!! because this project use NextJS canary version and React Alpha
 
 &nbsp;
 
@@ -56,6 +62,7 @@ You need few dependencies to transform webpack of Payload backend integrating wi
 1. ts-node
 2. @babel/register
 3. tsconfig-paths
+4. a setup scripts in package.json
 
 ## References
 
