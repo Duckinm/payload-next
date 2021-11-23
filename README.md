@@ -13,7 +13,7 @@ The purpose of this site is to update a catalog of houses with details, and to b
 - Express: Node server framework
 - MongoDB: The most popular NoSQL database
 - Mongo Atlas: You will need this in case you do not want to hosting your site without a server
-- SWR: Data fetching for the inconsistent layouts
+- SWR: Data fetching for the persistent layouts
 - Tailwind CSS: Utility classes for consistent/maintainable styling
 - HeadlessUI: A set of accessible UI components every app needs (accordion/tabs/dialog/etc...)
 - Postcss: CSS processor (pretty much just use it for autoprefixer and tailwind)
