@@ -32,7 +32,7 @@ const border: Field = {
       name: 'style',
       type: 'group',
       admin: {
-        condition: (_, siblingData) => {
+        condition: (_, siblingData): boolean  => {
           if (siblingData.isRound) return true
           return false
         },
@@ -90,7 +90,7 @@ const border: Field = {
       label: 'Stroke Outline',
       type: 'group',
       admin: {
-        condition: (_, siblingData) => {
+        condition: (_, siblingData): boolean  => {
           if (siblingData.isLine) return true
           return false
         },
